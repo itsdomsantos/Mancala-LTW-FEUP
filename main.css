@@ -1,7 +1,7 @@
 body {
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url(/images/background.jpg);
+    background-image: url("images/background2.jpg");
 }
 
 * {
@@ -9,69 +9,52 @@ body {
     padding: 0;
 }
 
-nav{
-    display: flex;
-    justify-content: flex-end;
+.mainmenu {
+    margin-top: 20px;
+    display: inline-block;
+    position: relative;
     width: 100%;
-    height: 60px;
-
-}
-
-nav p{
-    font-family: arial;
-    color: white;
-    font-size: 24px;
-    line-height: 55px ;
-    padding: 0px 20px;
-}
-
-nav ul{
-    
-}
-
-nav ul li{
-    
-    list-style: none;
-    position: relative;
-}
-
-nav ul li a {
+   }
+  
+.mainmenu li a
+{
     display: block;
-    font-family: arial;
-    color: white;
-    font-size: 14px;
-    padding: 22px 14px;
+    position: relative;
     text-decoration: none;
+    text-align: center;
+    font-size: 10px;
+    color: gray;
+    line-height: 32px;
+    font-weight: bold;
+    text-shadow: black 0 1px 0;
+    font-family: sans-serif;
+    white-space: nowrap;
+}
+  
+.mainmenu ul.menu-element {
+    margin: 0;
+    width: 100%;
+}
+  
+.mainmenu ul.menu-element li {
+    opacity: 45%;
+    float: right;
+    list-style: none;
+    width: 10%;
+}
+  
+.mainmenu ul.menu-element li:hover {
+    opacity: 80%;
+    float: right;
+    list-style: none;
+    width: 10%;
 }
 
-nav ul li ul {
-    display: none;
-    position: relative;
-    background-color: black;
-    padding: 10px;
-    border-radius: 0px 0px 4px 4px;
-}
-
-nav ul li:hover ul{
-    display: block;
-}
-
-nav ul li ul li{
-    width: 180px;
-    border-radius: 4px;
-}
-
-nav ul li ul a {
-    padding: 8px 14px;
-}
-
-nav ul li ul li a:hover{
-    background-color: grey;
-}
-
-
-nav .load{
-    animation: slide 2s;
+  
+.mainmenu img {
+    border: 0;
+    vertical-align: middle;
+    max-width: 37%;
 }
 
 .tabuleiro{
