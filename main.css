@@ -1,0 +1,101 @@
+body {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(/images/background.jpg);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+nav{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: 60px;
+
+}
+
+nav p{
+    font-family: arial;
+    color: white;
+    font-size: 24px;
+    line-height: 55px ;
+    padding: 0px 20px;
+}
+
+nav ul{
+    
+}
+
+nav ul li{
+    
+    list-style: none;
+    position: relative;
+}
+
+nav ul li a {
+    display: block;
+    font-family: arial;
+    color: white;
+    font-size: 14px;
+    padding: 22px 14px;
+    text-decoration: none;
+}
+
+nav ul li ul {
+    display: none;
+    position: relative;
+    background-color: black;
+    padding: 10px;
+    border-radius: 0px 0px 4px 4px;
+}
+
+nav ul li:hover ul{
+    display: block;
+}
+
+nav ul li ul li{
+    width: 180px;
+    border-radius: 4px;
+}
+
+nav ul li ul a {
+    padding: 8px 14px;
+}
+
+nav ul li ul li a:hover{
+    background-color: grey;
+}
+
+
+nav .load{
+    animation: slide 2s;
+}
+
+.tabuleiro{
+    border-radius: 30px;
+    width: 60%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 10px;
+    background-image: url(/images/wood.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 10px;
+    margin: 150px auto;
+}
+
+.tabuleiro > div {
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
+  }
+
+.item1 {
+    grid-row-start: 1;
+    grid-row-end: 2;
+  } 
