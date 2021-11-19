@@ -16,14 +16,14 @@ body {
     width: 100%;
    }
   
-.mainmenu li a
+nav li a
 {
     display: block;
     position: relative;
     text-decoration: none;
     text-align: center;
     font-size: 10px;
-    color: gray;
+    color: white;
     line-height: 32px;
     font-weight: bold;
     text-shadow: black 0 1px 0;
@@ -31,23 +31,57 @@ body {
     white-space: nowrap;
 }
   
-.mainmenu ul.menu-element {
+nav ul.menu-element {
     margin: 0;
     width: 100%;
 }
   
-.mainmenu ul.menu-element li {
+nav ul.menu-element li {
     opacity: 45%;
     float: right;
     list-style: none;
     width: 10%;
 }
   
-.mainmenu ul.menu-element li:hover {
+nav ul.menu-element li:hover {
     opacity: 80%;
     float: right;
     list-style: none;
     width: 10%;
+}
+
+nav ul li a{
+  display: block;
+    font-family: arial;
+    color: white;
+    font-size: 14px;
+    padding: 22px 14px;
+    text-decoration: none;
+}
+
+nav ul li ul {
+  display: none;
+    position: absolute;
+    background-color: black;
+    padding: 10px;
+    border-radius: 0px 0px 4px 4px;
+}
+
+nav ul li:hover ul{
+  display: flex;
+  flex-direction: column;
+}
+
+nav ul li ul li{
+  width: 180px;
+}
+
+nav ul li ul a{
+  padding: 8px 14px;
+}
+
+nav ul li ul li a:hover{
+  background-color: grey;
 }
 
   
@@ -82,3 +116,5 @@ body {
     grid-row-start: 1;
     grid-row-end: 2;
   } 
+
+  
