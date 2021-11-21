@@ -1,43 +1,80 @@
 <!DOCTYPE html>
 <!-- A declaração DOCTYPE declara a versão do HTML usado no documento -->
-<html>
+<html lang="en">
   <head>
     <link rel="stylesheet" href="main.css">
-    <script type="text/javascript" src="main.js"></script>
-    <meta charset="UTF-8">        <!-- para caracteres acentuados   -->
-    <title>Page By Domingos Santos (up201906680)</title>  <!-- texto na decoração da janela -->
+    <link href="main.html" rel="stylesheet">
+    <meta charset=UTF-8>        <!-- para caracteres acentuados   -->
+    <title>Popup</title>  <!-- texto na decoração da janela -->
   </head>
-<body>
-  
-  <div class="mainmenu">
-    <nav>
-      <ul class="menu-element">
-        <li><img src="images/icons/settings.png"></li>
-        <li><img src="images/icons/chat.png"></li>
-        <li><img src="images/icons/help.png"></li>
-        <li><img src="images/icons/rank.png">
-          <ul>
-            <li><a>Player 1</a></li>
-            <li><a>Player 2</a></li>
-            <li><a>More</a></li>
-            <li><a>Bla bla bla</a></li>
-          </u>
-        </li>
-       
-      </ul>
-    </nav>
-  </div>
-   
 
-  <div class="tabuleiro">
-    <div class="item1">1</div>
-    <div class="item2">2</div>
-    <div class="item3">3</div>  
-    <div class="item4">4</div>
-    <div class="item5">5</div>
-    <div class="item6">6</div>
-    <div class="item7">7</div>
-    <div class="item8">8</div>  
+<body>
+    
+  <button id="open">
+    New Game
+  </button>
+
+  <div class="modal-container" id="modal_container">
+
+    <div class="modal">
+      
+      <h1>Tabuleiro</h1>
+      <p> Player 1<br>
+          Player 2<br>
+      </p>
+    
+      <button id="close">
+        Go Back
+      </button>
+    </div>
+
   </div>
+
+  <button id="open1">
+    Clasificações
+  </button>
+
+  <div class="modal-container1" id="modal_container1">
+
+    <div class="modal1">
+      
+      <h1>Clasificações</h1>
+      <p> 1st: Player 1<br>
+          2nd: Player 5<br>
+      </p>
+    
+      <button id="close1">
+        Go Back
+      </button>
+    </div>
+
+  </div>
+
 </body>
-</html>
+
+<script>
+  const open = document.getElementById('open');
+  const modal_container = document.getElementById('modal_container');
+  const close = document.getElementById('close');
+
+  open.addEventListener('click', () =>{
+      modal_container.classList.add('show');
+  })
+
+  close.addEventListener('click', () =>{
+      modal_container.classList.remove('show');
+  })
+
+
+  const open1 = document.getElementById('open1');
+  const modal_container1 = document.getElementById('modal_container1');
+  const close1 = document.getElementById('close1');
+
+  open1.addEventListener('click', () =>{
+      modal_container1.classList.add('show');
+  })
+
+  close1.addEventListener('click', () =>{
+      modal_container1.classList.remove('show');
+  })
+</script>

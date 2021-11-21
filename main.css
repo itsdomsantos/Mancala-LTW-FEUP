@@ -1,120 +1,61 @@
-body {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image: url("images/background2.jpg");
-}
 
 * {
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
 }
 
-.mainmenu {
-    margin-top: 20px;
-    display: inline-block;
-    position: relative;
-    width: 100%;
-   }
-  
-nav li a
-{
-    display: block;
-    position: relative;
-    text-decoration: none;
-    text-align: center;
-    font-size: 10px;
-    color: white;
-    line-height: 32px;
-    font-weight: bold;
-    text-shadow: black 0 1px 0;
-    font-family: sans-serif;
-    white-space: nowrap;
-}
-  
-nav ul.menu-element {
-    margin: 0;
-    width: 100%;
-}
-  
-nav ul.menu-element li {
-    opacity: 45%;
-    float: right;
-    list-style: none;
-    width: 10%;
-}
-  
-nav ul.menu-element li:hover {
-    opacity: 80%;
-    float: right;
-    list-style: none;
-    width: 10%;
-}
-
-nav ul li a{
-  display: block;
-    font-family: arial;
-    color: white;
-    font-size: 14px;
-    padding: 22px 14px;
-    text-decoration: none;
-}
-
-nav ul li ul {
-  display: none;
-    position: absolute;
-    background-color: black;
-    padding: 10px;
-    border-radius: 0px 0px 4px 4px;
-}
-
-nav ul li:hover ul{
+body{
+  background-image: url("../ltw-project/images/background2.jpg");
+  font-family: 'Poppins', sans-serif;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
 }
 
-nav ul li ul li{
-  width: 180px;
+button {
+  background-color: rgb(145, 94, 27);
+  color: white;
+  border: 0;
+  border-radius: 5px;
+  padding: 10px 25px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
 }
 
-nav ul li ul a{
-  padding: 8px 14px;
+.modal-container, .modal-container1{
+  background-color:rgba(0, 0, 0, 0.5);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;  
+  opacity: 0;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
-nav ul li ul li a:hover{
-  background-color: grey;
+.modal-container.show, .modal-container1.show{
+  pointer-events: auto;
+  opacity: 1;
 }
 
-  
-.mainmenu img {
-    border: 0;
-    vertical-align: middle;
-    max-width: 37%;
+.modal, .modal1{
+  text-align: center;
+  background-color: rgb(208, 176, 132);
+  padding: 25px 25px;
+  border-radius: 5px;
+  width: 600px;
+  max-width: 100%;
 }
 
-.tabuleiro{
-    border-radius: 30px;
-    width: 60%;
-    display: grid;
-    grid-template-columns: auto auto auto;
-    grid-gap: 10px;
-    background-image: url(/images/wood.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 10px;
-    margin: 150px auto;
+.modal.h1, .modal1.h1{
+  margin: 0;
 }
 
-.tabuleiro > div {
-    border-radius: 30px;
-    background-color: rgba(255, 255, 255, 0.8);
-    text-align: center;
-    padding: 20px 0;
-    font-size: 30px;
-  }
-
-.item1 {
-    grid-row-start: 1;
-    grid-row-end: 2;
-  } 
-
-  
+.modal.p, .modal1.p{
+  opacity: 0.85;
+}
