@@ -9,50 +9,65 @@
   </head>
 
 <body>
-    
-  <button id="open">
-    New Game
-  </button>
+  
+  <!-- Parte do Jogo -->
+  <button id="open">New Game</button>
 
   <div class="modal-container" id="modal_container">
 
     <div class="modal">
       
-      <h1>Tabuleiro</h1>
-      <p> Player 1<br>
-          Player 2<br>
-      </p>
+      <h1>Mancala</h1>
     
-      <button id="close">
-        Go Back
-      </button>
+      <button class = "close" id="close" >Go Back</button>
+
+      <div class="tabuleiro">
+
+        <div class="armazem1"></div>
+
+        <div class="cavidades"></div>
+        <div class="cavidades"></div>
+        <div class="cavidades"></div>
+        <div class="cavidades"></div>
+        <div class="cavidades"></div>
+
+        <div class="armazem2"></div>
+        
+        <div class="cavidades2"></div>
+        <div class="cavidades2"></div>
+        <div class="cavidades2"></div>
+        <div class="cavidades2"></div>
+        <div class="cavidades2"></div>
+
+      </div>
     </div>
 
   </div>
+  <!-- Parte do Jogo -->
 
-  <button id="open1">
-    Clasificações
-  </button>
+  <!-- Parte das classificações -->
+  <button id="open1">Clasificações</button>
 
   <div class="modal-container1" id="modal_container1">
 
     <div class="modal1">
-      
+
       <h1>Clasificações</h1>
+
+      <button class ="close" id="close1">Go Back</button>
+
       <p> 1st: Player 1<br>
           2nd: Player 5<br>
       </p>
     
-      <button id="close1">
-        Go Back
-      </button>
     </div>
-
   </div>
+  <!-- Parte das classificações -->
 
 </body>
 
 <script>
+  /* Opens e closes do New Game */
   const open = document.getElementById('open');
   const modal_container = document.getElementById('modal_container');
   const close = document.getElementById('close');
@@ -65,7 +80,7 @@
       modal_container.classList.remove('show');
   })
 
-
+  /* Opens e closes das Classificações */
   const open1 = document.getElementById('open1');
   const modal_container1 = document.getElementById('modal_container1');
   const close1 = document.getElementById('close1');
