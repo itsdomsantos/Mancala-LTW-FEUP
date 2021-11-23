@@ -102,6 +102,11 @@ button {
   height: 250px;
   background-color: rgba(92, 64, 51, 0.7);
   border-radius: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-flow: wrap;
 }
 
 
@@ -111,7 +116,7 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  flex-flow: wrap; /* Resolve o overflow dos feijões */
   width: 50px;
   height: 80px;
   background-color: rgba(92, 64, 51, 0.7);
@@ -126,15 +131,20 @@ button {
   left: 70px;
 }
 
-.modal img {
+/* LOGO DO JOGO */
+.modal img { 
   width: 150px;
   height: 150px;
 }
 
 /* Dimensões dos feijoes */
-.tabuleiro img{
+.tabuleiro .draggable{
   cursor: pointer;
   width: 13px;
   height: 13px;
+}
+
+.draggable.dragging {
+  opacity: 0.5;
 }
 
