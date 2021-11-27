@@ -9,6 +9,7 @@ function showOrHideModal(evt){
   if(currentButtonElement.dataset.modalId) { // if the button has the data attribute modalId, it's a 'show' button
   	const targetModalId = currentButtonElement.dataset.modalId // get the target modal id from the data attribute
   	const targetModalElement = document.getElementById(targetModalId); // get the target modal element
+      
     targetModalElement.classList.remove('modal-hidden'); // remove the CSS class used to hide it
   } else { // the button is a 'close' button
   	const parentModal = currentButtonElement.parentElement; // get the parent modal element

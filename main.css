@@ -7,15 +7,16 @@
 body{
   background-image: url("images/wood.jpg");
   font-family: 'Poppins', sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   min-height: 100vh;
   margin: 0;
+ 
 }
 
 /* Display dos Butões */
 .modal-buttons {
+  margin-top: 130px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,16 +44,16 @@ button:hover {
 
 /* Aspeto do modal e posicionamento do seu interior */
 .modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   inset: 0; /* this is equal to 'top: 0; right: 0; bottom: 0; left: 0; */
   height: 550px;
   margin: 100px 300px 300px;
   background-image: url("images/game.jpg");
   background-size: cover;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   color: white;
 }
 
@@ -102,6 +103,7 @@ button:hover {
 
 /* display das cavidades*/
 .top_cavidades, .bottom_cavidades {
+
   width: 50px;
   height: 80px;
   background-color: rgba(92, 64, 51, 0.7);
@@ -109,12 +111,40 @@ button:hover {
   margin: 15px 15px;
 }
 
-
-/* LOGO DO JOGO */
-.modal img { 
-  width: 150px;
-  height: 150px;
+/* Header da página principal */
+.header {
+  width: 100%;
+  padding: 15px 15px;
+  overflow: hidden;
+  background-color: rgba(92, 64, 51, 0.3);
+  border-bottom-style: solid;
+  border-bottom-color:rgb(171, 133, 87);
 }
 
+/* Log In */
+.header form {
+  float: left;
+  background-color: rgba(244, 105, 41, 0.3);
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px; 
+  line-height: 25px;
+  border-radius: 4px;
+  
+}
 
+/* Parte direita do header (form) */
+.header-right {
+  float: right;
+  transform: translate(-2%, 50%);
+  
+}
 
+/* LOGO DO JOGO */
+.header img {
+  margin-left: 10px;
+  height: 100px;
+  width:  150px;
+}
