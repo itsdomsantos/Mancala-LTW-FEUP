@@ -14,6 +14,36 @@ body{
  
 }
 
+
+
+/* Header da página principal */
+.header {
+  width: 100%;
+  padding: 15px 15px;
+  background-color: rgba(193, 117, 81, 0.6);
+  border-bottom-style: solid;
+  border-bottom-color:rgb(171, 133, 87);
+  display: flex;
+}
+
+/* Log In */
+.header form {
+  padding: 0.7em 10px;
+  border-radius: 5px;
+  background-color: rgb(193, 117, 81);
+  position:absolute;
+  right: 50px;  
+  margin-top: 30px;
+}
+
+/* LOGO DO JOGO */
+.header img {
+  margin-left: 10px;
+  height: 100px;
+  width:  150px;
+}
+
+
 /* Display dos Butões */
 .modal-buttons {
   margin-top: 130px;
@@ -54,7 +84,6 @@ button:hover {
   margin: 100px 300px 300px;
   background-image: url("images/game.jpg");
   background-size: cover;
-  color: white;
 }
 
 /* Aspeto e posição do butão close */
@@ -72,6 +101,8 @@ button:hover {
 }
 
 
+
+/* Parte do Jogo */
 /* O Nosso tabuleiro */
 .tabuleiro {
   display: flex;
@@ -91,15 +122,14 @@ button:hover {
   height: 100%;
   background-color: rgba(92, 64, 51, 0.7);
   border-radius: 35px;
-  
 }
 
+/* Conjunto das caidades superiores e inferiores */
 .cavidades {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-
 
 /* display das cavidades*/
 .top_cavidades, .bottom_cavidades {
@@ -110,30 +140,15 @@ button:hover {
   margin: 15px 15px;
 }
 
-/* Header da página principal */
-.header {
-  width: 100%;
-  padding: 15px 15px;
-  background-color: rgba(193, 117, 81, 0.6);
-  border-bottom-style: solid;
-  border-bottom-color:rgb(171, 133, 87);
-  display: flex;
-}
-
-/* Log In */
-.header form {
-  padding: 0.7em 10px;
-  border-radius: 5px;
-  background-color: rgb(193, 117, 81);
-  position:absolute;
-  right: 50px;  
-  margin-top: 30px;
-}
 
 
-/* LOGO DO JOGO */
-.header img {
-  margin-left: 10px;
-  height: 100px;
-  width:  150px;
+/* Parte das Configurações*/
+
+
+
+/* Posição dos títulos */
+h1{
+  color:white;
+  position: absolute;
+  top: 0;
 }
