@@ -103,7 +103,6 @@ button:hover {
 
 /* display das cavidades*/
 .top_cavidades, .bottom_cavidades {
-
   width: 50px;
   height: 80px;
   background-color: rgba(92, 64, 51, 0.7);
@@ -115,32 +114,22 @@ button:hover {
 .header {
   width: 100%;
   padding: 15px 15px;
-  overflow: hidden;
-  background-color: rgba(92, 64, 51, 0.3);
+  background-color: rgba(193, 117, 81, 0.6);
   border-bottom-style: solid;
   border-bottom-color:rgb(171, 133, 87);
+  display: flex;
 }
 
 /* Log In */
 .header form {
-  float: left;
-  background-color: rgba(244, 105, 41, 0.3);
-  color: black;
-  text-align: center;
-  padding: 12px;
-  text-decoration: none;
-  font-size: 18px; 
-  line-height: 25px;
-  border-radius: 4px;
-  
+  padding: 0.7em 10px;
+  border-radius: 5px;
+  background-color: rgb(193, 117, 81);
+  position:absolute;
+  right: 50px;  
+  margin-top: 30px;
 }
 
-/* Parte direita do header (form) */
-.header-right {
-  float: right;
-  transform: translate(-2%, 50%);
-  
-}
 
 /* LOGO DO JOGO */
 .header img {
