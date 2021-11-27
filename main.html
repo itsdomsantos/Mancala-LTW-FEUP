@@ -11,138 +11,52 @@
 
 <body>
   
-  <!-- Parte do Jogo -->
-  <div class="button-container">
-    <button id="open">New Game</button>
-    <button id="open1">Clasificações</button>
+  <!-- Buttons to open-->
+  <div class="modal-buttons">
+    <button class="modal-show" data-modal-id="new-game-modal">New Game</button>
+    <button class="modal-show" data-modal-id="configuration-modal">Configuration</button>
+    <button class="modal-show" data-modal-id="instructions-modal">Instructions</button>
+    <button class="modal-show" data-modal-id="classifications-modal">Classifications</button>
   </div>
-  
 
-  <div class="modal-container" id="modal_container">
 
-    <div class="modal">
-      <img src="/images/icons/logo.png" alt="">
-    
-      <button class = "close" id="close" >Go Back</button>
+  <!-- Parte do jogo -->
+  <div class="modal modal-hidden" id="new-game-modal">
 
-      <div class="tabuleiro">
+      <img src="images/logo.png"> <!-- Logo que vai mudar de sítio -->
+      
+      <div class="tabuleiro"> <!-- Tabuleiro -->
 
-        <div class="armazem1"></div>
-        <div class="cavidades">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-        </div>
-        <div class="cavidades">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-        </div>
-        <div class="cavidades">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-        </div>
-        <div class="cavidades">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-        </div>
-        <div class="cavidades">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
-          <img class = 'draggable' src="/images/icons/feijaop1.png" draggable="true" alt="Feijão do jogador 1">
+        <div class="armazem"></div>
+
+        <div class="cavidades"> <!-- Cavidades -->
+          <div class="top_cavidades"></div>
+          <div class="bottom_cavidades"></div>
         </div>
 
-        <div class="armazem2"></div>
-        
-        <div class="cavidades2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-        </div>
-        <div class="cavidades2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-        </div>
-        <div class="cavidades2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-        </div>
-        <div class="cavidades2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-        </div>
-        <div class="cavidades2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true" alt="Feijão do jogador 2">
-          <img class = 'draggable' src="/images/icons/feijaop2.png" draggable="true"  alt="Feijão do jogador 2">
-        </div>
+        <div class="armazem"></div>
 
       </div>
-    </div>
+      <button class="modal-close">X</button>
 
   </div>
-  <!-- Parte do Jogo -->
 
-  <!-- Parte das classificações -->
-  <!--<button id="open1">Clasificações</button>   INVOCADO EM CIMA --> 
-
-  <div class="modal-container1" id="modal_container1">
-
-    <div class="modal1">
-
-      <h1>Clasificações</h1>
-
-      <button class ="close" id="close1">Go Back</button>
-
-      <p> 1st: Player 1<br>
-          2nd: Player 5<br>
-      </p>
-    
-    </div>
+  <!-- Parte das configurações -->
+  <div class="modal modal-hidden" id="configuration-modal">
+    <h2>Configuration modal content here</h2>
+    <button class="modal-close">X</button>
   </div>
-  <!-- Parte das classificações -->
+
+  <!-- Parte das instruções -->
+  <div class="modal modal-hidden" id="instructions-modal">
+    <h2>Instruction modal content here</h2>
+    <button class="modal-close">Close modal</button>
+  </div>
+
+  <!-- Parte das Classificações -->
+  <div class="modal modal-hidden" id="classifications-modal">
+    <h2>Classifications modal content here</h2>
+    <button class="modal-close">Close modal</button>
+  </div>
 
 </body>
-
-<script>
-  /* Opens e closes do New Game */
-  const open = document.getElementById('open');
-  const modal_container = document.getElementById('modal_container');
-  const close = document.getElementById('close');
-
-  open.addEventListener('click', () =>{
-      modal_container.classList.add('show');
-  })
-
-  close.addEventListener('click', () =>{
-      modal_container.classList.remove('show');
-  })
-
-  /* Opens e closes das Classificações */
-  const open1 = document.getElementById('open1');
-  const modal_container1 = document.getElementById('modal_container1');
-  const close1 = document.getElementById('close1');
-
-  open1.addEventListener('click', () =>{
-      modal_container1.classList.add('show');
-  })
-
-  close1.addEventListener('click', () =>{
-      modal_container1.classList.remove('show');
-  })
-</script>

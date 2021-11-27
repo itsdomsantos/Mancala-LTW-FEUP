@@ -5,7 +5,7 @@
 
 /* O Corpo da nossa page*/
 body{
-  background-image: url("images/background2.jpg");
+  background-image: url("images/wood.jpg");
   font-family: 'Poppins', sans-serif;
   display: flex;
   align-items: center;
@@ -14,109 +14,94 @@ body{
   margin: 0;
 }
 
-/* Os butões */
-.button-container{
+/* Display dos Butões */
+.modal-buttons {
   display: flex;
   flex-direction: column;
-}
-
-button {
-  background-color: rgb(86, 65, 37);
-  color: white;
-  border: 0;
-  border-radius: 5px;
-  padding: 10px 25px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  cursor: pointer;
-
-  margin-left: 4px;
-}
-
-/* o que vai estar dentro no nosso popup, ou seja, depois de abrir vai ter estas características */
-.modal-container, .modal-container1{
-  background-color:rgba(0, 0, 0, 0.5);
-  color: white;
-  display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;  
-  opacity: 0;
-  pointer-events: none;
-  width: 100vw;
-  height: 100vh;
+  height: 100%;
 }
 
-/* para aparecer depois de carregar */
-.modal-container.show, .modal-container1.show{
-  pointer-events: auto;
-  opacity: 1;
+/* Aspeto dos Butões */
+button {
+  width: 150px;
+  padding: 10px;
+  margin-bottom: 1em;
+  background-color: #47331fc1;
+  color: white;
+  font-weight: bold;
+  border: 1.5px solid #ebb386;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
-/* os nossos popups */
-.modal, .modal1{
+/* Para ficar mais escuro quando se passa por cima */
+button:hover {
+  background-color: #47331f76;
+}
+
+/* Aspeto do modal e posicionamento do seu interior */
+.modal {
+  position: absolute;
+  inset: 0; /* this is equal to 'top: 0; right: 0; bottom: 0; left: 0; */
+  height: 550px;
+  margin: 100px 300px 300px;
+  background-image: url("images/game.jpg");
+  background-size: cover;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: top;
-  padding: 25px 25px;
-  border-radius: 15px;
-  width: 1000px;
-  max-width: 100%;
-  height: 600px;
-  background-image: url("images/wood.jpg");
+  justify-content: center;
+  color: white;
 }
 
-/* os titulos dos popups */
-.modal h1, .modal1 h1{
-  margin: 0;
+/* Aspeto e posição do butão close */
+.modal-close{
+  width: fit-content;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border-radius: 0px;
 }
 
-/* os textos dos popups, dos que tiverem pelo menos */
-.modal1.p{
-  opacity: 0.85;
+/* esconde o modal quando o butão close é carregado */
+.modal-hidden {
+  display: none;
 }
 
-/* posição do butão close */
-.close {
-  position: relative;
-  top: 480px;
-}
 
 /* O Nosso tabuleiro */
 .tabuleiro {
   display: flex;
-  flex-wrap: wrap;
-  margin-top: 50px;
-  padding: 25px 25px;
-  border-radius: 15px;
-  width: 600px;
-  max-width: 100%;
+  flex-direction: row;
   height: 300px;
+  width: fit-content;
+  padding: 15px 15px;
+  border-radius: 15px;
   background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url("images/wood2.jpg");
   background-size: cover;
+  position: relative;
 }
 
 /*armazens*/
-.armazem1, .armazem2 {
+.armazem {
   width: 70px;
-  height: 250px;
+  height: 100%;
   background-color: rgba(92, 64, 51, 0.7);
   border-radius: 35px;
+  
+}
+
+.cavidades {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  flex-flow: wrap;
 }
 
 
 /* display das cavidades*/
-.cavidades, .cavidades2 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex-flow: wrap; /* Resolve o overflow dos feijões */
+.top_cavidades, .bottom_cavidades {
   width: 50px;
   height: 80px;
   background-color: rgba(92, 64, 51, 0.7);
@@ -124,12 +109,6 @@ button {
   margin: 15px 15px;
 }
 
-/*posição das cavidades do player de baixo */
-.cavidades2 {
-  position: relative;
-  bottom: 110px;
-  left: 70px;
-}
 
 /* LOGO DO JOGO */
 .modal img { 
@@ -137,14 +116,5 @@ button {
   height: 150px;
 }
 
-/* Dimensões dos feijoes */
-.tabuleiro .draggable{
-  cursor: pointer;
-  width: 13px;
-  height: 13px;
-}
 
-.draggable.dragging {
-  opacity: 0.5;
-}
 
