@@ -55,12 +55,14 @@
   <!-- Parte das configurações -->
   <div class="modal modal-hidden" id="configuration-modal">
     <h1>Configurações</h1>
-
-    <select name="nr_cavs" id="nr_cavs">
-
-    </select>
-
-    <button class="modal-close">X</button>
+    <!-- Range de Cavidades -->
+    <div class="ncav">
+      <input type="range" min="3" max="6" value="0" class="slider" id="myRange" oninput="this.nextElementSibling.value = this.value">
+      <output>3</output>
+      Cavidades
+    </div>
+    <div></div>
+    <div></div>
   </div>
 
   <!-- Parte das instruções -->
