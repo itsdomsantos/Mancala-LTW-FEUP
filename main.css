@@ -119,14 +119,15 @@ button:hover {
 }
 
 /*armazens*/
-.armazem {
+#bottom_armazem, #top_armazem{
   width: 70px;
   height: 100%;
   background-color: rgba(92, 64, 51, 0.7);
   border-radius: 35px;
+  transform: translateY(-7%);
 }
 
-/* bloco das caidades superiores e inferiores */
+/* bloco das cavidades superiores e inferiores */
 .cavidades {
   display: flex;
   flex-direction: column;
@@ -145,6 +146,11 @@ button:hover {
   background-color: rgba(92, 64, 51, 0.7);
   border-radius: 25px;
   margin: 15px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-flow: wrap; /* Resolve o overflow dos feijões */
 }
 
 
@@ -180,4 +186,9 @@ button:hover {
 h1{
   position: absolute;
   top: 0;
+}
+
+.tabuleiro img{
+  width: 15px;
+  height: 15px;
 }
