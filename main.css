@@ -155,6 +155,7 @@ button:hover {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
 }
 
 /* Display e aspeto do slider */
@@ -173,7 +174,6 @@ button:hover {
 .slider:hover {
   opacity: 1; /* Fully shown on mouse-over */
 }
-
 
 
 /* Posição dos títulos */
