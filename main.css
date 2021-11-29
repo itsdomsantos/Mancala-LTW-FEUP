@@ -121,8 +121,9 @@ button:hover {
   inset: 0; /* this is equal to 'top: 0; right: 0; bottom: 0; left: 0; */
   height: 550px;
   margin: 100px 300px 300px;
-  background-image: url("images/game.jpg");
+  background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url("images/game.jpg");
   background-size: cover;
+  color:white;
 }
 
 /* Aspeto e posição do butão close */
@@ -187,7 +188,6 @@ button:hover {
 
 /* Posição dos títulos */
 h1{
-  color:white;
   position: absolute;
   top: 0;
 }
