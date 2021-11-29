@@ -109,7 +109,7 @@ button:hover {
 .tabuleiro {
   display: flex;
   flex-direction: row;
-  height: 300px;
+  height: 260px;
   width: fit-content;
   padding: 15px 15px;
   border-radius: 15px;
@@ -126,15 +126,20 @@ button:hover {
   border-radius: 35px;
 }
 
-/* Conjunto das caidades superiores e inferiores */
+/* bloco das caidades superiores e inferiores */
 .cavidades {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-/* display das cavidades*/
-.top_cavidades, .bottom_cavidades {
+/* display das cavidades superiores e inferiores*/
+.top_cavidades, .bottom_cavidades{
+  display: flex;
+}
+
+/* aspeto das cavidades*/
+.cavidade{
   width: 50px;
   height: 80px;
   background-color: rgba(92, 64, 51, 0.7);
