@@ -135,7 +135,7 @@ button:hover {
 }
 
 /* display das cavidades superiores e inferiores*/
-.top_cavidades, .bottom_cavidades{
+#top_cavidades, #bottom_cavidades{
   display: flex;
 }
 

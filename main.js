@@ -27,23 +27,30 @@ output.innerHTML = slider.value; // Display the default slider value
 slider.oninput = function() {
   output.innerHTML = this.value;
 }
-/*
-const cavidades_total = document.querySelectorAll(".tabuleiro"); // Get all cavidades incluindo os dois armazens, e as cavidades top e bottom
 
-cavidades_total.forEach(cavidade => { // atach a click event listener to each button and pass it a named callback function
-  cavidade.addEventListener('click', moveSeeds);
-});
+function createCavidade(){
+  const cav = document.createElement('div');
+  cav.classList.add('cavidade', 'new');
+  return cav;
+}
 
-function moveSeeds(evt){
-	const currentCavity = evt.target;
-  if(currentButtonElement.dataset.modalId) { // if the button has the data attribute modalId, it's a 'show' button
-  	const targetModalId = currentButtonElement.dataset.modalId // get the target modal id from the data attribute
-  	const targetModalElement = document.getElementById(targetModalId); // get the target modal element
-      
-    targetModalElement.classList.remove('modal-hidden'); // remove the CSS class used to hide it
-  } else { // the button is a 'close' button
-  	const parentModal = currentButtonElement.parentElement; // get the parent modal element
-    parentModal.classList.add('modal-hidden'); // add the CSS class used to hide it
+function appendChildren(parent, children) {
+  children.forEach(function(child) {
+    parent.appendChild(child);
+  })
+}
+
+const top_cavidades = document.getElementById('top_cavidades');
+const bottom_cavidades = document.getElementById('bottom_cavidades');
+
+function items(numItems) {
+	const cavidades = [];
+	for(let i = 0; i < numItems; i++) {
+  	const item = createCavidade();
+    cavidades.push(item);
   }
-  
-}*/
+	return cavidades;
+}
+
+appendChildren(top_cavidades, items(1));
+appendChildren(bottom_cavidades, items(1));
