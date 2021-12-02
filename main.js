@@ -20,7 +20,7 @@ function showOrHideModal(evt){
 
 
 var slider = document.getElementById("myRange");
-var output = document.getElementById("output");
+var output = slider.value;
 output.innerHTML = slider.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
@@ -28,12 +28,14 @@ slider.oninput = function() {
   output.innerHTML = this.value;
 }
 
+// Creates cavity class
 function createCavidade(){
   const cav = document.createElement('div');
   cav.classList.add('cavidade', 'new');
   return cav;
 }
 
+// Add child to parent
 function appendChildren(parent, children) {
   children.forEach(function(child) {
     parent.appendChild(child);
@@ -43,6 +45,7 @@ function appendChildren(parent, children) {
 const top_cavidades = document.getElementById('top_cavidades');
 const bottom_cavidades = document.getElementById('bottom_cavidades');
 
+// Create numbers and push to array
 function items(numItems) {
 	const cavidades = [];
 	for(let i = 0; i < numItems; i++) {
@@ -52,5 +55,6 @@ function items(numItems) {
 	return cavidades;
 }
 
-appendChildren(top_cavidades, items(1));
-appendChildren(bottom_cavidades, items(1));
+// Appends certain number of Items
+appendChildren(top_cavidades, items(3));
+appendChildren(bottom_cavidades, items(2));
