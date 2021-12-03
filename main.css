@@ -187,7 +187,9 @@ h1{
   top: 0;
 }
 
-.tabuleiro img{
+.feijao{
+  background-color: red;
+  background-image: url("images/feijaop1.png");
   width: 15px;
   height: 15px;
 }

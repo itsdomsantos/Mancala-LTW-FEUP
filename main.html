@@ -36,15 +36,12 @@
   <div class="modal modal-hidden" id="new-game-modal">
       
     <h1>Mancala</h1>
-    <div class="tabuleiro"> <!-- Tabuleiro -->
+    <div class="tabuleiro" id="tabuleiro"> <!-- Tabuleiro -->
 
-      <div class="armazem" id="top_armazem"></div>
       <div class="cavidades">
         <div class="top_cavidades" id="top_cavidades"></div>
         <div class="bottom_cavidades" id="bottom_cavidades"></div>
       </div>
-      
-      <div class="armazem" id="bottom_armazem"></div>
 
     </div>
     <button class="modal-close">X</button>
@@ -56,9 +53,9 @@
     <h1>Configurações</h1>
     <!-- Range de Cavidades -->
     <div class="ncav">
-      <h3>Cavidades</h3> <input type="range" min="3" max="6" value="0" class="slider" id="myRange" oninput="this.nextElementSibling.value = this.value"> <output id = "output"><h3>3</h3></output>
+      <h3>Cavidades</h3> <input type="range" min="3" max="6" value="0" class="slider" id="myRangeCav" > <output id = "output_cav"><h3>3</h3></output>
 
-      <h3>Sementes</h3> <input type="range" min="3" max="6" value="0" class="slider" id="myRange" oninput="this.nextElementSibling.value = this.value"> <output id = "output2"><h3>3</h3></output>
+      <h3>Sementes</h3> <input type="range" min="3" max="6" value="0" class="slider" id="myRangeSeed"> <output id = "output_seed"><h3>3</h3></output>
     </div>
     
     <button class="modal-close">X</button>
