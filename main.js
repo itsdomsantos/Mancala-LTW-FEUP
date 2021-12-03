@@ -69,9 +69,12 @@ cavidadesTotal.forEach(function(cav){
 });
 
 slider_seed.onchange = function() {
-  output_seed.innerHTML = this.value;
-  cavidade.forEach(function(cav) {
-    appendChildren(cav, items_seed(this.value));
+  const numSedds = this.value;
+  output_seed.innerHTML = numSedds;
+  console.log(Number(this.value));
+  // pôr seeds vazias
+  cavidadesTotal.forEach(function(cav) {
+    appendChildren(cav, items_seed(numSedds));
   });
 }
 
