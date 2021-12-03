@@ -20,7 +20,7 @@ function showOrHideModal(evt){
 
 
 var slider = document.getElementById("myRange");
-var output = slider.value;
+var output = document.getElementById("output")
 output.innerHTML = slider.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
