@@ -5,11 +5,10 @@ const top_cavidades = document.getElementById('top_cavidades');
 const bottom_cavidades = document.getElementById('bottom_cavidades');
 const top_armazem = document.querySelector('.armazem');
 const bottom_armazem = document.querySelector('.armazem');
-const feijao = document.querySelector('.feijao');
 
 // Cardinal para ID
 
-
+/* Butões para abrir e fechar os modals */
 modalButtons.forEach(button => { // atach a click event listener to each button and pass it a named callback function
   button.addEventListener('click', showOrHideModal);
 });
@@ -29,55 +28,67 @@ function showOrHideModal(evt){
 }
 
 
-
-// Creates armazem class
-function createArmazem(){
-  const arm = document.createElement('div');
-  arm.classList.add('armazem', 'new');
-  return arm;
-}
+/* Gera os armazens */
 tabuleiro.prepend(createArmazem()); // Adiciona o primeiro armazem
 tabuleiro.append(createArmazem()); // Adiciona o segundo armazem
 
+
+/* Gera as cavidades */
 var slider_cav = document.getElementById("myRangeCav");
 var output_cav = document.getElementById("output_cav")
 output_cav.innerHTML = slider_cav.value; // Display the default slider value
 
-var slider_seed = document.getElementById("myRangeSeed");
-var output_seed = document.getElementById("output_seed");
-output_seed.innerHTML = slider_seed.value; // Display the default slider value
-
 // Update the current Cav slider value (each time you drag the slider handle)
 appendChildren(top_cavidades, items_cav(slider_cav.value));
 appendChildren(bottom_cavidades, items_cav(slider_cav.value));
+
+// função on change, atualiza as cavidades para as cavidades do slider
 slider_cav.onchange = function() {
   output_cav.innerHTML = this.value;
   top_cavidades.innerHTML = ''; // Limpar o tabuleiro
   bottom_cavidades.innerHTML = ''; // Limpar o tabuleiro
   appendChildren(top_cavidades, items_cav(Number(this.value)));
   appendChildren(bottom_cavidades, items_cav(Number(this.value)));
+
+  cavidadesTotal = document.querySelectorAll('.cavidade'); // atualiza o numero de cavidades
+  displaySeeds(cavidadesTotal, output_seed.innerHTML); // gera as sementes
 }
 
 
-const cavidadesTotal = document.querySelectorAll('.cavidade');
-console.log(cavidadesTotal);
+/* Gera as sementes */
+var slider_seed = document.getElementById("myRangeSeed");
+var output_seed = document.getElementById("output_seed");
+output_seed.innerHTML = slider_seed.value; // Display the default slider value
+
+var cavidadesTotal = document.querySelectorAll('.cavidade'); // tem de ser var ou let porque é alterado o número de cavidades
 
 // Update the current Seed slider value (each time you drag the slider handle)
-cavidadesTotal.forEach(function(cav){
-  console.log(cav);
-  appendChildren(cav, items_seed(slider_seed.value));
-});
+displaySeeds(cavidadesTotal, slider_seed.value);
 
+// função on change, atualiza as sementes para as sementes do slider
 slider_seed.onchange = function() {
-  const numSedds = this.value;
-  output_seed.innerHTML = numSedds;
-  console.log(Number(this.value));
-  // pôr seeds vazias
+  output_seed.innerHTML = this.value;
+  cavidadesTotal.forEach(function(cav) { // Limpa as cavidades
+    cav.innerHTML = '';
+  });
+  displaySeeds(cavidadesTotal, this.value);
+}
+
+// função que gera as sementes
+function displaySeeds(cavidadesTotal, num){
+  const numSeeds = num;
   cavidadesTotal.forEach(function(cav) {
-    appendChildren(cav, items_seed(numSedds));
+    appendChildren(cav, items_seed(numSeeds));
   });
 }
 
+
+// Creates armazem class
+function createArmazem(){ // Creates armazem class
+  const arm = document.createElement('div');
+  arm.classList.add('armazem', 'new');
+  return arm;
+}
 
 // Creates cavity class
 function createCavidade(){
@@ -92,6 +103,7 @@ function createSeed(){
   seed.classList.add('feijao');
   return seed;
 }
+
 
 // Add child to parent
 function appendChildren(parent, children) {
