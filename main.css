@@ -150,6 +150,7 @@ button:hover {
   justify-content: center;
   align-items: center;
   flex-flow: wrap; /* Resolve o overflow dos feijões */
+  cursor: pointer;
 }
 
 
@@ -188,8 +189,8 @@ h1{
 }
 
 .feijao{
-  background-color: red;
   background-image: url("images/feijaop1.png");
+  background-size: cover;
   width: 15px;
   height: 15px;
 }
