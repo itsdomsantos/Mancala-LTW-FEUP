@@ -41,6 +41,8 @@ output_seed.innerHTML = slider_seed.value; // Display the default slider value
 
 let game = new Game(slider_seed.value, slider_cav.value);
 game.tabuleiro.draw_objects();
+console.log(game.tabuleiro.cavidades.cavTop.cavs);
+console.log(game.tabuleiro.cavidades.cavBot.cavs);
 
 
 // função on change, atualiza as cavidades para as cavidades do slider

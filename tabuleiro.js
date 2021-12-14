@@ -2,7 +2,7 @@ import Cavidades from "./cavidades.js";
 import Armazem from "./armazem.js";
 
 
-class Tabuleiro{
+class Tabuleiro{// class do tabuleiro
     constructor(nSeeds, nCavs){
       this.cavidades = new Cavidades(nSeeds, nCavs);
       this.armazemTop = new Armazem(0);

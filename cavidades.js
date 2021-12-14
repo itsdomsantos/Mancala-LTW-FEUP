@@ -1,5 +1,6 @@
 import Cavidade from "./cavidade.js"
 
+// class que contém as cavidades do top e as do bottom
 class Cavidades{
     constructor(nSeeds, nCavs){
       this.cavTop = new CavTop(nSeeds, nCavs);
@@ -10,7 +11,7 @@ class Cavidades{
       this.ele = document.getElementById('cavidades');
     }
 
-    create_Array(nCavs, nSeeds){
+    create_Array(nCavs, nSeeds){ // cria o vetor das cavidades tanto para as top, como par aas bottom, que por sua vez irá chamar a função que cria as seeds
       const cavidades = [];
       for(let i = 0; i < nCavs; i++) {
           const item = new Cavidade(nSeeds);
@@ -20,7 +21,7 @@ class Cavidades{
     }
 }
   
-class CavTop{
+class CavTop{//cavidades de cima
     constructor(){
       this.cavs = null;
 
@@ -28,7 +29,7 @@ class CavTop{
     }
 }
   
-class CavBot{
+class CavBot{//caviades de baixo
     constructor(){
       this.cavs = null;
 
