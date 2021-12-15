@@ -15,7 +15,7 @@ class Cavidade{
     create_seeds(){ // cria o vetor de seeds para as cavidades
       const seeds = [];
       for(let i = 0; i < this.nSeeds; i++) {
-          const item = new Seed;
+          const item = new Seed();
           seeds.push(item.ele);
       }
       return seeds;
