@@ -9,12 +9,11 @@ class Tabuleiro{// class do tabuleiro
       this.armazemRight = new Armazem(0);
 
       this.players = {p1:this.create_player(this.armazemLeft, this.cavidades.cavTop, 'p1'), p2: this.create_player(this.armazemRight, this.cavidades.cavBot, 'p2')}
-
-      console.log(this.players);
   
       this.tabuleiro = document.getElementById('tabuleiro');
 
       this.draw_objects();
+      this.checkIfClicked();
     }
 
     draw_objects(){
@@ -50,6 +49,7 @@ class Tabuleiro{// class do tabuleiro
         this.armazemLeft.ele.remove(); 
         this.armazemRight.ele.remove(); 
 
+        this.players = {};
         this.cavidades.cavTop.ele.innerHTML = '';
         this.cavidades.cavBot.ele.innerHTML = '';
     }

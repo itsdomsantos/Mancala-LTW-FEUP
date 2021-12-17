@@ -32,8 +32,6 @@ slider_cav.onchange = function() {
   
   game.tabuleiro.clean_board();  
   game = new Game(slider_seed.value, slider_cav.value);
-
-  game.tabuleiro.checkIfClicked();
 }
 
 // função on change, atualiza as sementes para as sementes do slider
@@ -42,12 +40,7 @@ slider_seed.onchange = function() {
   
   game.tabuleiro.clean_board();  
   game = new Game(slider_seed.value, slider_cav.value);
-
-  game.tabuleiro.checkIfClicked();
 }
-
-game.tabuleiro.checkIfClicked();
-
 
 
 
