@@ -15,7 +15,7 @@ class Cavidades{
     create_Array(nCavs, nSeeds){ // cria o vetor das cavidades tanto para as top, como par aas bottom, que por sua vez irá chamar a função que cria as seeds
       const cavidades = [];
       for(let i = 0; i < nCavs; i++) {
-          const item = new Cavidade(nSeeds);
+          const item = new Cavidade(nSeeds, i);
           cavidades.push(item);
       }
       return cavidades;

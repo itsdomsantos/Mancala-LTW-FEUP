@@ -97,6 +97,17 @@ button:hover {
   border-radius: 0px;
 }
 
+/* Aspeto e posição do butão Quit Game */
+#quitGame{
+  height: 50px;
+  position: absolute;
+  top: 80%;
+  bottom: 0px;
+  left: 50%;
+  border-radius: 0px;
+  transform: translateX(-50%);
+}
+
 /* esconde o modal quando o butão close é carregado */
 .modal-hidden {
   display: none;
