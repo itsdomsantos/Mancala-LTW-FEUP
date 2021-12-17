@@ -14,11 +14,11 @@ class Tabuleiro{// class do tabuleiro
     draw_objects(){
         this.tabuleiro.prepend(this.armazemLeft.ele);
 
-        this.cavidades.cavTop.cavs.forEach(cav =>{
+        this.cavidades.cavTop.forEach(cav =>{
             this.cavidades.cavTop.ele.append(cav.ele); //  As cavidades têm de ser inseridas como elementos filhos do elemento cavTop, não do tabuleiro
         })
 
-        this.cavidades.cavBot.cavs.forEach(cav =>{
+        this.cavidades.cavBot.forEach(cav =>{
             this.cavidades.cavBot.ele.append(cav.ele); // As cavidades têm de ser inseridas como elementos filhos do elemento cavBop, não do tabuleiro
         })
 
@@ -34,11 +34,11 @@ class Tabuleiro{// class do tabuleiro
     }
 
     checkIfClicked(){
-        this.cavidades.cavTop.cavs.forEach(cav =>{
+        this.cavidades.cavTop.forEach(cav =>{
             cav.ele.addEventListener('click', this.jogada.bind(this, cav));
         })
 
-        this.cavidades.cavBot.cavs.forEach(cav =>{
+        this.cavidades.cavBot.forEach(cav =>{
             cav.ele.addEventListener('click', this.jogada.bind(this, cav));
         })
     }

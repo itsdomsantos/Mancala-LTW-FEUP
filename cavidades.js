@@ -3,10 +3,11 @@ import Cavidade from "./cavidade.js"
 // class que contém as cavidades do top e as do bottom
 class Cavidades{
     constructor(nSeeds, nCavs){
-      this.cavTop = new CavTop(nSeeds, nCavs);
-      this.cavTop.cavs = this.create_Array(nCavs, nSeeds);
-      this.cavBot = new CavBot(nSeeds, nCavs);
-      this.cavBot.cavs = this.create_Array(nCavs, nSeeds);
+      this.cavTop = this.create_Array(nCavs, nSeeds);
+      this.cavTop.ele = document.getElementById('top_cavidades');
+
+      this.cavBot = this.create_Array(nCavs, nSeeds);
+      this.cavBot.ele = document.getElementById('bottom_cavidades');
 
       this.ele = document.getElementById('cavidades');
     }
@@ -18,22 +19,6 @@ class Cavidades{
           cavidades.push(item);
       }
       return cavidades;
-    }
-}
-  
-class CavTop{ // cavidades de cima
-    constructor(){
-      this.cavs = null;
-
-      this.ele = document.getElementById('top_cavidades');
-    }
-}
-  
-class CavBot{ // caviades de baixo
-    constructor(){
-      this.cavs = null;
-
-      this.ele = document.getElementById('bottom_cavidades');
     }
 }
 

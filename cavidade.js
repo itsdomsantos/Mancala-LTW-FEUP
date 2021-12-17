@@ -5,8 +5,6 @@ class Cavidade{
     this.ele = this.draw();
     this.seeds = this.create_seeds();
     this.drawSeeds(); // Novo método para inserir as sementes na DOM (ver abaixo)
-
-    //this.ele.addEventListener('click', this.clearSeeds.bind(this));
   }
 
   draw(){ // cria a cavidade
@@ -27,12 +25,6 @@ class Cavidade{
   drawSeeds() { 
     this.seeds.forEach(seed => this.ele.append(seed)); 
   }
-
-  /*clearSeeds(){
-    this.seeds.forEach(seed => {
-      seed.remove();
-    });
-  }*/
 }
 
 // class do feijão 
