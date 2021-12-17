@@ -24,6 +24,11 @@ function showOrHideModal(evt){
 class Game{
   constructor(nSeeds, nCavs){
     this.tabuleiro = new Tabuleiro(nSeeds, nCavs);
+    this.result = true;
+  }
+
+  GameOver(){
+    this.result = false;
   }
 }
 
@@ -41,8 +46,6 @@ output_seed.innerHTML = slider_seed.value; // Display the default slider value
 
 let game = new Game(slider_seed.value, slider_cav.value);
 game.tabuleiro.draw_objects();
-console.log(game.tabuleiro.cavidades.cavTop.cavs);
-console.log(game.tabuleiro.cavidades.cavBot.cavs);
 
 
 // função on change, atualiza as cavidades para as cavidades do slider
@@ -53,6 +56,8 @@ slider_cav.onchange = function() {
 
   game = new Game(slider_seed.value, slider_cav.value);
   game.tabuleiro.draw_objects();
+
+  game.tabuleiro.checkIfClicked();
 }
 
 // função on change, atualiza as sementes para as sementes do slider
@@ -63,4 +68,8 @@ slider_seed.onchange = function() {
 
   game = new Game(slider_seed.value, slider_cav.value);
   game.tabuleiro.draw_objects();
+
+  game.tabuleiro.checkIfClicked();
 }
+
+game.tabuleiro.checkIfClicked();

@@ -21,7 +21,7 @@ class Cavidades{
     }
 }
   
-class CavTop{//cavidades de cima
+class CavTop{ // cavidades de cima
     constructor(){
       this.cavs = null;
 
@@ -29,7 +29,7 @@ class CavTop{//cavidades de cima
     }
 }
   
-class CavBot{//caviades de baixo
+class CavBot{ // caviades de baixo
     constructor(){
       this.cavs = null;
 
