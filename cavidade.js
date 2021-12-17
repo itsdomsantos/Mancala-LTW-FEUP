@@ -2,10 +2,11 @@
 class Cavidade{
   constructor(nSeeds, id){
     this.nSeeds = nSeeds;
+    this.id = id;
+
     this.ele = this.draw();
     this.seeds = this.create_seeds();
     this.drawSeeds(); // Novo método para inserir as sementes na DOM (ver abaixo)
-    this.id = id;
   }
 
   draw(){ // cria a cavidade
@@ -25,6 +26,13 @@ class Cavidade{
 
   drawSeeds() { 
     this.seeds.forEach(seed => this.ele.append(seed)); 
+  }
+
+  setNewNumberSeeds(){
+    this.seeds.forEach(seed => { seed.remove() });
+    
+    this.seeds = this.create_seeds();
+    this.drawSeeds();
   }
 }
 
