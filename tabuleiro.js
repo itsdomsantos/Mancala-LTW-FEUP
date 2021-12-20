@@ -16,6 +16,7 @@ class Tabuleiro{// class do tabuleiro
 
       this.draw_objects();
       this.checkIfClicked();
+      this.checkIfHover();
     }
 
     draw_objects(){
@@ -66,6 +67,17 @@ class Tabuleiro{// class do tabuleiro
         })
     }
 
+    checkIfHover(){
+        this.cavidades.cavTop.forEach(cav =>{
+            cav.ele.addEventListener('mouseover', this.showSeeds.bind(this, cav, cav.id, this.players.p1, this.players.p2));
+            cav.ele.addEventListener('mouseout', this.showSeeds.bind(this, cav, cav.id, this.players.p1, this.players.p2));
+        })
+
+        this.cavidades.cavBot.forEach(cav =>{        
+            cav.ele.addEventListener('mouseover', this.showSeeds.bind(this, cav, cav.id, this.players.p2, this.players.p1));
+        })
+    }
+
     jogada(cav, id, player, outro_Player){
         let seedsToTransfer = 0;
 
@@ -73,7 +85,6 @@ class Tabuleiro{// class do tabuleiro
             console.log("Jogada Impossível");
             return;
         }
-
         cav.seeds.forEach(seed =>{
             seedsToTransfer ++;
             seed.remove();
@@ -83,6 +94,10 @@ class Tabuleiro{// class do tabuleiro
         })
 
         this.transferSeeds(player, seedsToTransfer, id, outro_Player);
+    }
+
+    showSeeds(cav, id, player, outro_Player){
+        console.log(cav.nSeeds);
     }
 
     transferSeeds(player, seedsToTransfer, id, outro_Player){
