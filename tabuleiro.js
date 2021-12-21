@@ -132,16 +132,10 @@ class Tabuleiro{// class do tabuleiro
     }
 
     GameOver(){ // termina o jogo
-        console.log('game over');
-        this.clean_board();
         const gameOver = document.createElement('span');
         gameOver.innerText = 'Game Over';
-        gameOver.classList.add('impossible');
+        gameOver.classList.add('gameOver');
         this.tabuleiro.append(gameOver);
-
-        gameOver.addEventListener('click', (evt) => {
-            document.querySelector('.impossible').remove();
-        })
     }
 }
 

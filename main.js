@@ -58,6 +58,7 @@ function showOrHideModal(evt){
   	const parentModal = currentButtonElement.parentElement; // get the parent modal element
     parentModal.classList.add('modal-hidden'); // add the CSS class used to hide it
 
+    document.querySelector('.gameOver').remove();
     game.tabuleiro.clean_board();  
     game = new Game(slider_seed.value, slider_cav.value);
   }
