@@ -162,11 +162,20 @@ button:hover {
   align-items: center;
   flex-flow: wrap; /* Resolve o overflow dos feijões */
   cursor: pointer;
+  position: relative;
 }
 
-.cavidade:hover {
-  background-color: black;
+.cavidade:hover { /* quando tem o cursor em cima */
+  background-color: rgb(92, 64, 51);
   opacity: 100%;
+}
+
+/* Numero das Seeds */
+.num-seeds {
+  position: absolute;
+  top: -30px;
+  font-size: 2em;
+  color: white;
 }
 
 
@@ -203,9 +212,28 @@ h1{
   top: 0;
 }
 
+/* Seed */
 .feijao{
   background-image: url("images/feijaop1.png");
   background-size: cover;
   width: 15px;
   height: 15px;
+}
+
+
+
+/* Jogada Impossível */
+.impossible{
+  position: absolute;
+  
+  font-size: 2em;
+  color: rgb(255, 255, 255);
+}
+
+/* Game Over */
+.gameOver{
+  position: absolute;
+
+  font-size: 3em;
+  color: red;
 }

@@ -12,6 +12,7 @@ class Cavidade{
   draw(){ // cria a cavidade
       const cav = document.createElement('div');
       cav.classList.add('cavidade');
+      this.attachListeners(cav);
       return cav;
   }
 
@@ -24,15 +25,28 @@ class Cavidade{
     return seeds;
   }
 
-  drawSeeds() { 
+  drawSeeds() { // faz append das seeds à cavidade
     this.seeds.forEach(seed => this.ele.append(seed)); 
   }
 
-  setNewNumberSeeds(){
+  setNewNumberSeeds(){ // quando a cavidade é clickada, o número de seeds é alterado
     this.seeds.forEach(seed => { seed.remove() });
     
     this.seeds = this.create_seeds();
     this.drawSeeds();
+  }
+
+  attachListeners(cav) { // função que trata de mostrar o número de seeds da cavidade que tem o cursor por cima
+    cav.addEventListener('mouseover', (evt) => {
+    	const numSeeds = document.createElement('span');
+      numSeeds.innerText = this.nSeeds;
+      numSeeds.classList.add('num-seeds')
+    	evt.target.append(numSeeds);
+    })
+    
+    cav.addEventListener('mouseout', (evt) => {
+    	document.querySelector('.num-seeds').remove();
+    })
   }
 }
 

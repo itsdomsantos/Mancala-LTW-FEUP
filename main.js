@@ -4,11 +4,6 @@ import Tabuleiro from "./tabuleiro.js";
 class Game{
   constructor(nSeeds, nCavs){
     this.tabuleiro = new Tabuleiro(nSeeds, nCavs);
-    this.result = true;
-  }
-
-  GameOver(){
-    this.result = false;
   }
 }
 
@@ -24,7 +19,8 @@ var output_seed = document.getElementById("output_seed");
 output_seed.innerHTML = slider_seed.value; // Display the default slider value
 
 
-let game = new Game(slider_seed.value, slider_cav.value);
+let game = new Game(slider_seed.value, slider_cav.value); // INÍCIO DO JOGO
+
 
 // função on change, atualiza as cavidades para as cavidades do slider
 slider_cav.onchange = function() {
@@ -41,7 +37,6 @@ slider_seed.onchange = function() {
   game.tabuleiro.clean_board();  
   game = new Game(slider_seed.value, slider_cav.value);
 }
-
 
 
 

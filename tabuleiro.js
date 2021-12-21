@@ -7,33 +7,32 @@ class Tabuleiro{// class do tabuleiro
       this.cavidades = new Cavidades(nSeeds, nCavs);
       this.armazemLeft = new Armazem(0);
       this.armazemRight = new Armazem(0);
+      this.gameOver = true;
 
       this.players = {p1:this.create_player(this.armazemLeft, this.cavidades.cavTop, 'p1'), p2: this.create_player(this.armazemRight, this.cavidades.cavBot, 'p2')}
-      this.players.p1.reverse();
-      console.log(this.players);
+      this.players.p1.reverse(); // inverte os elementos para o player de cima ser tratado da mesma forma que o de baixo
   
       this.tabuleiro = document.getElementById('tabuleiro');
 
       this.draw_objects();
       this.checkIfClicked();
-      this.checkIfHover();
     }
 
-    draw_objects(){
+    draw_objects(){ // desenha o tabuleiro
         this.tabuleiro.prepend(this.armazemLeft.ele);
 
         this.cavidades.cavTop.forEach(cav =>{
-            this.cavidades.cavTop.ele.append(cav.ele); //  As cavidades têm de ser inseridas como elementos filhos do elemento cavTop, não do tabuleiro
+            this.cavidades.cavTop.ele.append(cav.ele); // As cavidades são inseridas como elementos filhos do elemento cavTop
         })
 
         this.cavidades.cavBot.forEach(cav =>{
-            this.cavidades.cavBot.ele.append(cav.ele); // As cavidades têm de ser inseridas como elementos filhos do elemento cavBop, não do tabuleiro
+            this.cavidades.cavBot.ele.append(cav.ele); // As cavidades são inseridas como elementos filhos do elemento cavBot
         })
 
         this.tabuleiro.append(this.armazemRight.ele);
     }
 
-    create_player(armazem, cavs, p){
+    create_player(armazem, cavs, p){ // cria os jogadores
         const player = [];
         if(p == 'p1'){
             player.push(armazem);
@@ -48,7 +47,7 @@ class Tabuleiro{// class do tabuleiro
         return player;
     }
 
-    clean_board(){
+    clean_board(){ // limpa o tabuleiro
         this.armazemLeft.ele.remove(); 
         this.armazemRight.ele.remove(); 
 
@@ -57,7 +56,7 @@ class Tabuleiro{// class do tabuleiro
         this.cavidades.cavBot.ele.innerHTML = '';
     }
 
-    checkIfClicked(){
+    checkIfClicked(){ // vê se cada cavidade foi clickada
         this.cavidades.cavTop.forEach(cav =>{
             cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p1, this.players.p2));
         })
@@ -67,23 +66,11 @@ class Tabuleiro{// class do tabuleiro
         })
     }
 
-    checkIfHover(){
-        this.cavidades.cavTop.forEach(cav =>{
-            cav.ele.addEventListener('mouseover', this.showSeeds.bind(this, cav, cav.id, this.players.p1, this.players.p2));
-            cav.ele.addEventListener('mouseout', this.showSeeds.bind(this, cav, cav.id, this.players.p1, this.players.p2));
-        })
-
-        this.cavidades.cavBot.forEach(cav =>{        
-            cav.ele.addEventListener('mouseover', this.showSeeds.bind(this, cav, cav.id, this.players.p2, this.players.p1));
-        })
-    }
-
-    jogada(cav, id, player, outro_Player){
+    jogada(cav, id, player, outro_Player){ // trata de cada jogada
         let seedsToTransfer = 0;
 
         if(cav.nSeeds == 0){
-            console.log("Jogada Impossível");
-            return;
+            this.jogada_Impossible();
         }
         cav.seeds.forEach(seed =>{
             seedsToTransfer ++;
@@ -96,11 +83,7 @@ class Tabuleiro{// class do tabuleiro
         this.transferSeeds(player, seedsToTransfer, id, outro_Player);
     }
 
-    showSeeds(cav, id, player, outro_Player){
-        console.log(cav.nSeeds);
-    }
-
-    transferSeeds(player, seedsToTransfer, id, outro_Player){
+    transferSeeds(player, seedsToTransfer, id, outro_Player){ // faz a transferência das Seeds recursivamente, caso chegue ao aramazem ainda com Seeds para distribuir
 
         for(let i = id + 1; i < player.length; i++){
             if(seedsToTransfer == 0) break;
@@ -111,11 +94,54 @@ class Tabuleiro{// class do tabuleiro
             seedsToTransfer --;
         }
 
-        if(seedsToTransfer == 0) return;
+        if(seedsToTransfer == 0) {
+            this.check_If_Game_Is_Over();
+            if(this.gameOver == true) this.GameOver();
+            this.gameOver = true;
+            return;
+        }
         else{
-            this.transferSeeds(outro_Player, seedsToTransfer, -1, player); // o outro player vai ter de ser argumento da função transferSeeds
+            this.transferSeeds(outro_Player, seedsToTransfer, -1, player); // recursiva
         }
         
+    }
+
+    jogada_Impossible(){ //jogada impossivel
+        const impossivel = document.createElement('span');
+        impossivel.innerText = 'Jogada Impossível';
+        impossivel.classList.add('impossible');
+        this.tabuleiro.append(impossivel);
+
+        impossivel.addEventListener('click', (evt) => {
+            document.querySelector('.impossible').remove();
+        })
+    }
+
+    check_If_Game_Is_Over(){ // vê se todas as cavidades estão vazias
+        this.cavidades.cavTop.forEach(cav =>{
+            if(cav.nSeeds !== 0) this.gameOver = false;
+            console.log(cav.nSeeds);
+        })
+
+        this.cavidades.cavBot.forEach(cav =>{        
+            if(cav.nSeeds !== 0) this.gameOver = false;
+            console.log(cav.nSeeds);
+        })
+
+        console.log(this.gameOver);
+    }
+
+    GameOver(){ // termina o jogo
+        console.log('game over');
+        this.clean_board();
+        const gameOver = document.createElement('span');
+        gameOver.innerText = 'Game Over';
+        gameOver.classList.add('impossible');
+        this.tabuleiro.append(gameOver);
+
+        gameOver.addEventListener('click', (evt) => {
+            document.querySelector('.impossible').remove();
+        })
     }
 }
 

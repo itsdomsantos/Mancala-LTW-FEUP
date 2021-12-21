@@ -12,7 +12,7 @@ class Cavidades{
       this.ele = document.getElementById('cavidades');
     }
 
-    create_Array(nCavs, nSeeds){ // cria o vetor das cavidades tanto para as top, como par aas bottom, que por sua vez irá chamar a função que cria as seeds
+    create_Array(nCavs, nSeeds){ // cria o vetor das cavidades tanto para as top, como para as bottom, que por sua vez irá chamar a função que cria as seeds
       const cavidades = [];
       for(let i = 0; i < nCavs; i++) {
           const item = new Cavidade(nSeeds, i);
