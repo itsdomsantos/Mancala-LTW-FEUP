@@ -111,10 +111,12 @@ class Tabuleiro{// class do tabuleiro
         impossivel.innerText = 'Jogada Impossível';
         impossivel.classList.add('impossible');
         this.tabuleiro.append(impossivel);
+        this.remove_jogada_Impossible();
+    }
 
-        impossivel.addEventListener('click', (evt) => {
-            document.querySelector('.impossible').remove();
-        })
+
+    remove_jogada_Impossible(){
+        setTimeout(() => {document.querySelector('.impossible').remove()}, 1000); // Ao fim de 1000 ms a função remove o alerta de "Jogada Impossível";
     }
 
     check_If_Game_Is_Over(){ // vê se todas as cavidades estão vazias
