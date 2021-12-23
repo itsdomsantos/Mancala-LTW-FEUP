@@ -135,6 +135,11 @@ button:hover {
   height: 100%;
   background-color: rgba(92, 64, 51, 0.7);
   border-radius: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-flow: wrap; /* Resolve o overflow dos feijões */
 }
 
 /* bloco das cavidades superiores e inferiores */
