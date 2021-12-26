@@ -228,22 +228,16 @@ h1{
 
 
 /* Jogada Impossível */
-.impossible{
+.textOnBoard{
   position: absolute;
-  transform: translate(70%, 100%);
-  width: 150px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
   padding: 10px;
   background-color: #47331fc1;
   color: white;
   font-weight: bold;
   border: 1.5px solid #ebb386;
   border-radius: 10px;
-}
-
-/* Game Over */
-.gameOver{
-  position: absolute;
-
-  font-size: 3em;
-  color: red;
 }
