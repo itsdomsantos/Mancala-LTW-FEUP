@@ -56,14 +56,28 @@
       <h3>Cavidades</h3> <input type="range" min="3" max="6" value="0" class="slider" id="myRangeCav" > <output id = "output_cav"><h3>3</h3></output>
 
       <h3>Sementes</h3> <input type="range" min="3" max="6" value="0" class="slider" id="myRangeSeed"> <output id = "output_seed"><h3>3</h3></output>
+
+      <h3> Nível de Dificuldade</h3>
+      <button class="button" id="easy"> Easy </button>
+      <button class="button" id="medium"> Medium </button>
+      <button class="button" id="hard"> Hard </button>
     </div>
-    
     <button class="modal-close">X</button>
   </div>
 
   <!-- Parte das instruções -->
   <div class="modal modal-hidden" id="instructions-modal">
     <h1>Instruções</h1>
+    <div class="instructions">
+      Players take turns to play seeds. To take a turn, the player first chooses a non-empty hollow from one of the six in the near row and picks up all the seeds contained in it.
+      <br>
+      <br>
+      If a player cannot play because all six hollows are empty, the game ends and all the seeds on the other side of the board are captured by the other player.
+      When one player has captured 25 seeds, the game ends and that player is the winner.
+      <br>
+      <br>
+      The game is drawn if both players accumulate 24 seeds or very occasionally in a stalemate situation when it becomes clear that the last remaining seeds are just being moved around the board with no chance of capturing.
+    </div>
     <button class="modal-close">X</button>
   </div>
 

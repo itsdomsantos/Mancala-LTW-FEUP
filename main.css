@@ -241,3 +241,17 @@ h1{
   border: 1.5px solid #ebb386;
   border-radius: 10px;
 }
+
+/* Instruction Box */
+.instructions{
+  margin-top: 40px;
+  width: 70%;
+  padding: 10px;
+  margin-bottom: 1em;
+  background-color: #47331fc1;
+  color: white;
+  font-weight: bold;
+  border: 1.5px solid #ebb386;
+  border-radius: 10px;
+  text-align: center;
+}
