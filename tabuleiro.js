@@ -51,6 +51,9 @@ class Tabuleiro{// class do tabuleiro
     }
 
     clean_board(){ // limpa o tabuleiro
+        if(this.changeTurn == 'p1') this.remove_Text_On_Board('.computer', 0);
+        else this.remove_Text_On_Board('.player', 0);
+        
         this.armazemLeft.ele.remove(); 
         this.armazemRight.ele.remove(); 
 
@@ -60,6 +63,8 @@ class Tabuleiro{// class do tabuleiro
     }
 
     checkIfClicked(){ // vê se cada cavidade foi clickada
+        this.showWhoIsPlaying(this.changeTurn);
+    
         this.cavidades.cavTop.forEach(cav =>{
             cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p1, this.players.p2));
         })
@@ -75,32 +80,36 @@ class Tabuleiro{// class do tabuleiro
         if(this.gameOver == true) return;
 
         if(player.at(player.length - 1) != this.changeTurn){
-            this.notYourTurn();
+            this.msgNoTabuleiro('É a vez do adversário!');
             return;
         }
 
         if(cav.nSeeds == 0){
-            this.jogada_Impossible();
+            this.msgNoTabuleiro('Jogada Impossíel!\nTenta outra cavidade!');
             return;
         }
 
         cav.seeds.forEach(seed =>{
             seedsToTransfer ++;
             seed.remove();
-
-            cav.nSeeds = 0;
-            cav.setNewNumberSeeds();
         })
+
+        cav.nSeeds = 0;
+        cav.setNewNumberSeeds();
 
         let result = this.transferSeeds(player, seedsToTransfer, id, outro_Player); // começa a transferência das Seeds
 
-        if(this.check_Player_Cavs(player)) return; // vê se as cavidades do player que está a jogar ficaram vazias com a ultima jogada
+        if(this.check_Player_Cavs(player, outro_Player)) return; // vê se as cavidades do player que está a jogar ficaram vazias com a ultima jogada
 
-        if(this.check_Player_Cavs(outro_Player)) return; // vê se as cavidades do outro player estão todas vazias
+        if(this.check_Player_Cavs(outro_Player, player)) return; // vê se as cavidades do outro player estão todas vazias
 
         if(result == -1) return; // quando a ultima seed cai no armazem joga de novo
 
+        if(this.changeTurn == 'p1') this.remove_Text_On_Board('.computer', 0);
+        else this.remove_Text_On_Board('.player', 0);
         this.changeTurn = outro_Player.at(outro_Player.length - 1); // muda para a vez do outro jogador
+
+        this.showWhoIsPlaying(this.changeTurn);
     }
 
     transferSeeds(player, seedsToTransfer, id, outro_Player){ // faz a transferência das Seeds recursivamente, caso chegue ao aramazem ainda com Seeds para distribuir
@@ -108,7 +117,7 @@ class Tabuleiro{// class do tabuleiro
         for(let i = id + 1; i < player.length - 1; i++){
             if(seedsToTransfer == 0) break;
 
-            if(player.at(i).nSeeds == 0 && seedsToTransfer == 1 && player.at(length - 1) == this.changeTurn && player.at(i) != player.at(player.length - 2)){
+            if(player.at(i).nSeeds == 0 && seedsToTransfer == 1 && player.at(length - 1) == this.changeTurn && i != player.length - 2){
                 this.steal_Seeds(i, player, outro_Player);
             }
 
@@ -143,7 +152,7 @@ class Tabuleiro{// class do tabuleiro
         player.at(player.length - 2).setNewNumberSeeds();
     }
 
-    check_Player_Cavs(player){
+    check_Player_Cavs(player, outro_Player){
         let helper_guy = 0;
         for(let i = 0; i < player.length - 2; i++){
             if(player.at(i).nSeeds != 0){
@@ -152,38 +161,59 @@ class Tabuleiro{// class do tabuleiro
         }
 
         if(helper_guy == 0) {
+            let restOfSeeds = 0, i;
+           
+            for(i = 0; i < outro_Player.length - 2; i++){
+                restOfSeeds += outro_Player.at(i).nSeeds;
+                outro_Player.at(i).seeds.forEach(seed =>{
+                    seed.remove();
+                })
+                outro_Player.at(i).nSeeds = 0;
+                outro_Player.at(i).setNewNumberSeeds();
+            }
+
+            outro_Player.at(i).nSeeds += restOfSeeds;
+            outro_Player.at(i).setNewNumberSeeds();
+
             this.GameOver();
             return true;
         }
     }
 
-    jogada_Impossible(){ // jogada impossivel
-        const impossivel = document.createElement('span');
-        impossivel.innerText = 'Jogada Impossível';
-        impossivel.classList.add('textOnBoard');
-        this.tabuleiro.append(impossivel);
-        this.remove_Text_On_Board();
+    showWhoIsPlaying(player){
+        const msg = document.createElement('span');
+        if(player == 'p1'){
+            msg.innerText = "Computer's turn!";
+            msg.classList.add('computer');
+        }
+        else{
+            msg.innerText = 'Your turn!';
+            msg.classList.add('player');
+        }
+        this.tabuleiro.append(msg);
     }
 
-    notYourTurn(){ // não é a tua vez (msg)
-        const notYourTurn = document.createElement('span');
-        notYourTurn.innerText = 'É a vez do adversário!';
-        notYourTurn.classList.add('textOnBoard');
-        this.tabuleiro.append(notYourTurn);
-        this.remove_Text_On_Board();
+    msgNoTabuleiro(mensagem){ // jogada impossivel
+        const msg = document.createElement('span');
+        msg.innerText = mensagem;
+        msg.classList.add('textOnBoard');
+        this.tabuleiro.append(msg);
+        this.remove_Text_On_Board('.textOnBoard', 1000);
     }
 
-    remove_Text_On_Board(){ // remove a msg que está no tabuleiro
-        setTimeout(() => {document.querySelector('.textOnBoard').remove()}, 1000); // Ao fim de 1000 ms a função remove o alerta de "Jogada Impossível";
+    remove_Text_On_Board(msgToRemove, time){ // remove a msg que está no tabuleiro
+        setTimeout(() => {document.querySelector(msgToRemove).remove()}, time); // Ao fim de 1000 ms a função remove o alerta de "Jogada Impossível";
     }
 
     GameOver(){ // termina o jogo
+        if(this.changeTurn == 'p1') this.remove_Text_On_Board('.computer', 0);
+        else this.remove_Text_On_Board('.player', 0);
         const gameOver = document.createElement('span');
         if(this.armazemLeft.nSeeds > this.armazemRight.nSeeds){
-            gameOver.innerText = 'Player 1 Won! You Lost :(';
+            gameOver.innerText = 'Computer Won! You Lost :(\n Computer: ' + this.armazemLeft.nSeeds + '\n You: ' + this.armazemRight.nSeeds;
         }
         else if(this.armazemLeft.nSeeds < this.armazemRight.nSeeds){
-            gameOver.innerText = 'You Won The Match! :)';
+            gameOver.innerText = 'You Won The Match! :)\n Computer: ' + this.armazemLeft.nSeeds + '\n You: ' + this.armazemRight.nSeeds;
         }
         else{
             gameOver.innerText = 'Close Match, That is a Tie! :|';

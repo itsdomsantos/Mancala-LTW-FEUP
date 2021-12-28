@@ -142,6 +142,11 @@ button:hover {
   flex-flow: wrap; /* Resolve o overflow dos feijões */
 }
 
+.armazem:hover{
+  background-color: rgb(92, 64, 51);
+  opacity: 100%;
+}
+
 /* bloco das cavidades superiores e inferiores */
 .cavidades {
   display: flex;
@@ -227,14 +232,27 @@ h1{
 
 
 
-/* Jogada Impossível */
+/* Texto no tabuleiro */
 .textOnBoard{
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   width: fit-content;
-  padding: 10px;
+  padding: 15px;
+  background-color: #47331fc1;
+  color: white;
+  font-weight: bold;
+  border: 1.5px solid #ebb386;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* Instruction Box */
+.instructions{
+  width: 70%;
+  padding: 50px;
+  text-align: left;
   background-color: #47331fc1;
   color: white;
   font-weight: bold;
@@ -242,16 +260,26 @@ h1{
   border-radius: 10px;
 }
 
-/* Instruction Box */
-.instructions{
-  margin-top: 40px;
-  width: 70%;
-  padding: 10px;
-  margin-bottom: 1em;
+.computer, .player{
+  width: fit-content;
+  padding: 15px;
   background-color: #47331fc1;
   color: white;
   font-weight: bold;
   border: 1.5px solid #ebb386;
   border-radius: 10px;
   text-align: center;
+}
+
+.computer{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -100%);
+}
+
+.player{
+  position: absolute;
+  left: 50%;
+  bottom: 0%;
+  transform: translate(-50%, 50%);
 }
