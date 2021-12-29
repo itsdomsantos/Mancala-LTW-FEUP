@@ -63,3 +63,30 @@ function showOrHideModal(evt){
     game = new Game(slider_seed.value, slider_cav.value);
   }
 }
+
+
+//butoes de dificuldade
+const optionButtons = document.querySelectorAll('.dificuldade');
+optionButtons.forEach(evt => {
+  console.log(evt);
+});
+
+const optionButtons1 = document.querySelectorAll('.mode');  // butoes de modo de jogo
+optionButtons1.forEach(evt => {
+  console.log(evt);
+});
+
+
+// era suposto checkar se esta clicado ou nao mas nao consegui
+if(document.getElementById("online").checked){
+  const optionButtons1 = document.querySelectorAll('.mode');
+  optionButtons1.forEach('click', evt => {
+    evt.disbled = true;
+  })
+  
+}
+else{
+  console.log("computer");
+}
+
+

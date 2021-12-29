@@ -239,11 +239,43 @@ h1 {
   justify-content: space-between;
 }
 
-.mode {
-  width: 1em;
-  height: 1em;
-  clip-path: circle();
-  transform: translate(0%, 75%);
+.mode{
+  cursor: pointer;
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  border: 3px solid red;
+  opacity: 60;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.mode:before{
+  content: '';
+  width: 15px;
+  height: 15px;
+  background: wheat;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 600ms ease-in-out;
+  position: absolute;
+}
+
+.radio:checked:before {
+  opacity: 1;
+}
+
+.radio:focus {
+  box-shadow: 0 0 5px red;
+}
+
+.mode:checked:before{
+  opacity: 1;
 }
 
 /* tipo de dificuldade */
@@ -251,6 +283,48 @@ h1 {
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+.dificuldade{
+  width: 100px;
+  height: 40px;
+  width: 150px;
+  padding: 10px;
+  margin-bottom: 1em;
+  background: #47331fc1;
+  color: white;
+  font-weight: bold;
+  border: 1.5px solid #ebb386;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.dificuldade:before{
+  content: '';
+  width: 15px;
+  height: 15px;
+  background: wheat;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 600ms ease-in-out;
+  position: absolute;
+}
+
+.dificuldade:checked:before {
+  opacity: 1;
+}
+
+.dificuldade:focus {
+  box-shadow: 0 0 5px red;
+  background-color: brown;
+}
+
+.dificuldade:checked:before{
+  opacity: 1;
 }
 
 
