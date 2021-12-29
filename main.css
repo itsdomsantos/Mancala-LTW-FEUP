@@ -4,7 +4,7 @@
 }
 
 /* O Corpo da nossa page*/
-body{
+body {
   background-image: url("images/wood.jpg");
   font-family: 'Poppins', sans-serif;
   background-repeat: no-repeat;
@@ -45,7 +45,7 @@ body{
 
 
 
-/* Display dos Butões */
+/* Display dos Botões */
 .modal-buttons {
   margin-top: 130px;
   display: flex;
@@ -55,7 +55,7 @@ body{
   height: 100%;
 }
 
-/* Aspeto dos Butões */
+/* Aspeto dos Botões */
 button {
   width: 150px;
   padding: 10px;
@@ -88,8 +88,8 @@ button:hover {
   color:white;
 }
 
-/* Aspeto e posição do butão close */
-.modal-close{
+/* Aspeto e posição do botão close */
+.modal-close {
   width: fit-content;
   position: absolute;
   top: 0px;
@@ -97,8 +97,8 @@ button:hover {
   border-radius: 0px;
 }
 
-/* Aspeto e posição do butão Quit Game */
-#quitGame{
+/* Aspeto e posição do botão Quit Game */
+#quitGame {
   height: 50px;
   position: absolute;
   top: 80%;
@@ -111,6 +111,14 @@ button:hover {
 /* esconde o modal quando o butão close é carregado */
 .modal-hidden {
   display: none;
+}
+
+
+
+/* Posição dos títulos */
+h1 {
+  position: absolute;
+  top: 0;
 }
 
 
@@ -130,7 +138,7 @@ button:hover {
 }
 
 /*armazens*/
-.armazem{
+.armazem {
   width: 70px;
   height: 100%;
   background-color: rgba(92, 64, 51, 0.7);
@@ -142,7 +150,7 @@ button:hover {
   flex-flow: wrap; /* Resolve o overflow dos feijões */
 }
 
-.armazem:hover{
+.armazem:hover {
   background-color: rgb(92, 64, 51);
   opacity: 100%;
 }
@@ -155,12 +163,12 @@ button:hover {
 }
 
 /* display das cavidades superiores e inferiores*/
-.top_cavidades, .bottom_cavidades{
+.top_cavidades, .bottom_cavidades {
   display: flex;
 }
 
 /* aspeto das cavidades*/
-.cavidade{
+.cavidade {
   width: 50px;
   height: 80px;
   background-color: rgba(92, 64, 51, 0.7);
@@ -188,9 +196,18 @@ button:hover {
   color: white;
 }
 
+/* Seed */
+.feijao {
+  background-image: url("images/feijaop1.png");
+  background-size: cover;
+  width: 15px;
+  height: 15px;
+}
+
+
 
 /* Parte das Configurações*/
-.ncav{
+.ncav {
   width: 50%;
   display: flex;
   flex-wrap: wrap;
@@ -215,25 +232,46 @@ button:hover {
   opacity: 1; /* Fully shown on mouse-over */
 }
 
-
-/* Posição dos títulos */
-h1{
-  position: absolute;
-  top: 0;
+/* modes */
+.modes {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
-/* Seed */
-.feijao{
-  background-image: url("images/feijaop1.png");
-  background-size: cover;
-  width: 15px;
-  height: 15px;
+.mode {
+  width: 1em;
+  height: 1em;
+  clip-path: circle();
+  transform: translate(0%, 75%);
+}
+
+/* tipo de dificuldade */
+.dificuldades {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 
 
+/* Instruction Box */
+.instructions {
+  width: 70%;
+  padding: 50px;
+  text-align: left;
+  background-color: #47331fc1;
+  color: white;
+  font-weight: bold;
+  border: 1.5px solid #ebb386;
+  border-radius: 10px;
+}
+
+
+
+/* Textos */
 /* Texto no tabuleiro */
-.textOnBoard{
+.textOnBoard {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -248,19 +286,8 @@ h1{
   text-align: center;
 }
 
-/* Instruction Box */
-.instructions{
-  width: 70%;
-  padding: 50px;
-  text-align: left;
-  background-color: #47331fc1;
-  color: white;
-  font-weight: bold;
-  border: 1.5px solid #ebb386;
-  border-radius: 10px;
-}
-
-.computer, .player{
+/* Texto dos jogadores */
+.computer, .player {
   width: fit-content;
   padding: 15px;
   background-color: #47331fc1;
@@ -271,13 +298,15 @@ h1{
   text-align: center;
 }
 
-.computer{
+/* vez do computador */ 
+.computer {
   position: absolute;
   left: 50%;
   transform: translate(-50%, -100%);
 }
 
-.player{
+/* vez do jogador */
+.player { 
   position: absolute;
   left: 50%;
   bottom: 0%;
