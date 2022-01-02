@@ -9,6 +9,8 @@ class Tabuleiro{// class do tabuleiro
       this.armazemRight = new Armazem(0);
       this.gameOver = false; // fica a true quando o jogo acaba (serve para limpar o Game Over do tabuleiro)
       this.changeTurn = 'p2'; // muda para a vez do outro jogador
+      this.difficulty = 'easy';
+      this.mode = 'computer';
 
       this.players = {p1:this.create_player(this.armazemLeft, this.cavidades.cavTop, 'p1'), p2: this.create_player(this.armazemRight, this.cavidades.cavBot, 'p2')}
       this.players.p1.reverse(); // inverte os elementos para o player de cima ser tratado da mesma forma que o de baixo
@@ -61,6 +63,17 @@ class Tabuleiro{// class do tabuleiro
         this.cavidades.cavTop.ele.innerHTML = '';
         this.cavidades.cavBot.ele.innerHTML = '';
     }
+
+    setMode(mode){
+        this.mode = mode;
+        console.log(this.mode);
+    }
+
+    setDifficulty(difficulty){
+        this.difficulty = difficulty;
+        console.log(this.difficulty);
+    }
+
 
     checkIfClicked(){ // vê se cada cavidade foi clickada
         this.showWhoIsPlaying(this.changeTurn);

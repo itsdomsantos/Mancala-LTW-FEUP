@@ -237,25 +237,25 @@ h1 {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  transform: translateY(-10%);
 }
 
-.mode{
+/* botão do modo */
+.mode {
   cursor: pointer;
   appearance: none;
-  width: 30px;
-  height: 30px;
-  border: 3px solid red;
-  opacity: 60;
+  width: 25px;
+  height: 25px;
+  border: 3px solid blue;
   border-radius: 50%;
-  position: relative;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
-  outline: none;
+  transform: translateY(+50%);
 }
 
-.mode:before{
+/* display do que está dentro do botão */
+.mode::before {
   content: '';
   width: 15px;
   height: 15px;
@@ -263,18 +263,10 @@ h1 {
   border-radius: 50%;
   opacity: 0;
   transition: all 600ms ease-in-out;
-  position: absolute;
 }
 
-.radio:checked:before {
-  opacity: 1;
-}
-
-.radio:focus {
-  box-shadow: 0 0 5px red;
-}
-
-.mode:checked:before{
+/* quando fica ativo */
+.mode:checked::before{
   opacity: 1;
 }
 
@@ -285,8 +277,8 @@ h1 {
   justify-content: space-between;
 }
 
-.dificuldade{
-  width: 100px;
+/* botão das dificuldades */
+.dificuldade {
   height: 40px;
   width: 150px;
   padding: 10px;
@@ -297,33 +289,15 @@ h1 {
   border: 1.5px solid #ebb386;
   border-radius: 10px;
   cursor: pointer;
+  opacity: 0.4;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-
-.dificuldade:before{
-  content: '';
-  width: 15px;
-  height: 15px;
-  background: wheat;
-  border-radius: 50%;
-  opacity: 0;
-  transition: all 600ms ease-in-out;
-  position: absolute;
-}
-
-.dificuldade:checked:before {
-  opacity: 1;
-}
-
+/* quando é carregado */
 .dificuldade:focus {
-  box-shadow: 0 0 5px red;
-  background-color: brown;
-}
-
-.dificuldade:checked:before{
+  box-shadow: 0 0 5px blue;
   opacity: 1;
 }
 

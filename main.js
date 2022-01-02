@@ -66,27 +66,31 @@ function showOrHideModal(evt){
 
 
 //butoes de dificuldade
-const optionButtons = document.querySelectorAll('.dificuldade');
-optionButtons.forEach(evt => {
-  console.log(evt);
+const dificuldades = document.querySelectorAll('.dificuldade');
+
+dificuldades.forEach(dificuldade => {
+  dificuldade.addEventListener('click', showDificulty);
 });
 
-const optionButtons1 = document.querySelectorAll('.mode');  // butoes de modo de jogo
-optionButtons1.forEach(evt => {
-  console.log(evt);
+function showDificulty(evt) {
+  const currentDificulty = evt.target;
+  game.tabuleiro.setDifficulty(currentDificulty.id);
+}
+
+const modes = document.querySelectorAll('.mode');  // butoes de modo de jogo
+modes.forEach(mode => {
+  mode.addEventListener('click', choosenMode);
 });
 
 
-// era suposto checkar se esta clicado ou nao mas nao consegui
-if(document.getElementById("online").checked){
-  const optionButtons1 = document.querySelectorAll('.mode');
-  optionButtons1.forEach('click', evt => {
-    evt.disbled = true;
-  })
-  
+function choosenMode(evt) {
+  const currentMode = evt.target;
+  if(document.getElementById("online").checked){
+    document.getElementById("dificuldades").style.opacity = 0;
+    game.tabuleiro.setMode(currentMode.id);
+  }
+  if(document.getElementById("computer").checked){
+    document.getElementById("dificuldades").style.opacity = 1;
+    game.tabuleiro.setMode(currentMode.id);
+  }
 }
-else{
-  console.log("computer");
-}
-
-
