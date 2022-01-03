@@ -42,7 +42,7 @@ slider_seed.onchange = function() {
 
 const modalButtons = document.querySelectorAll('.modal-show, .modal-close'); // Get all buttons used for showing and hiding the modals
 
-/* Butões para abrir e fechar os modals */
+/* Botões para abrir e fechar os modals */
 modalButtons.forEach(button => { // atach a click event listener to each button and pass it a named callback function
   button.addEventListener('click', showOrHideModal);
 });
@@ -53,7 +53,7 @@ function showOrHideModal(evt){
   	const targetModalId = currentButtonElement.dataset.modalId // get the target modal id from the data attribute
   	const targetModalElement = document.getElementById(targetModalId); // get the target modal element
       
-    if(currentButtonElement.dataset.modalId == 'new-game-modal') game.tabuleiro.showWhoIsPlaying(game.tabuleiro.changeTurn);
+    //if(currentButtonElement.dataset.modalId == 'new-game-modal') game.tabuleiro.showWhoIsPlaying(game.tabuleiro.changeTurn);
     
     targetModalElement.classList.remove('modal-hidden'); // remove the CSS class used to hide it
   } else { // the button is a 'close' button

@@ -79,7 +79,9 @@ class Tabuleiro{// class do tabuleiro
         console.log(this.difficulty);
     }
 
-    checkIfClicked(){ // vê se cada cavidade foi clickada    
+    checkIfClicked(){ // vê se cada cavidade foi clickada  
+        this.showWhoIsPlaying(this.changeTurn);
+        
         this.cavidades.cavTop.forEach(cav =>{
             cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p1, this.players.p2));
         })
