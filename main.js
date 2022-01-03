@@ -53,6 +53,8 @@ function showOrHideModal(evt){
   	const targetModalId = currentButtonElement.dataset.modalId // get the target modal id from the data attribute
   	const targetModalElement = document.getElementById(targetModalId); // get the target modal element
       
+    if(currentButtonElement.dataset.modalId == 'new-game-modal') game.tabuleiro.showWhoIsPlaying(game.tabuleiro.changeTurn);
+    
     targetModalElement.classList.remove('modal-hidden'); // remove the CSS class used to hide it
   } else { // the button is a 'close' button
   	const parentModal = currentButtonElement.parentElement; // get the parent modal element

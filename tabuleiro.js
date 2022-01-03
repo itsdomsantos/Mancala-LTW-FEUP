@@ -9,6 +9,7 @@ class Tabuleiro{// class do tabuleiro
       this.armazemRight = new Armazem(0);
       this.gameOver = false; // fica a true quando o jogo acaba (serve para limpar o Game Over do tabuleiro)
       this.changeTurn = 'p2'; // muda para a vez do outro jogador
+      this.lastTurn = '';
       this.difficulty = 'easy';
       this.mode = 'computer';
 
@@ -53,9 +54,13 @@ class Tabuleiro{// class do tabuleiro
     }
 
     clean_board(){ // limpa o tabuleiro
-        if(this.changeTurn == 'p1') this.remove_Text_On_Board('.computer', 0);
-        else this.remove_Text_On_Board('.player', 0);
-        
+        if(this.changeTurn == 'p1') 
+            this.remove_Text_On_Board('.computer', 0);
+        if(this.changeTurn == 'p2' && this.lastTurn != ''){
+            console.log("h2");
+            this.remove_Text_On_Board('.player', 0);
+        }
+
         this.armazemLeft.ele.remove(); 
         this.armazemRight.ele.remove(); 
 
@@ -75,9 +80,7 @@ class Tabuleiro{// class do tabuleiro
     }
 
 
-    checkIfClicked(){ // vê se cada cavidade foi clickada
-        this.showWhoIsPlaying(this.changeTurn);
-    
+    checkIfClicked(){ // vê se cada cavidade foi clickada    
         this.cavidades.cavTop.forEach(cav =>{
             cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p1, this.players.p2));
         })
@@ -102,6 +105,7 @@ class Tabuleiro{// class do tabuleiro
             return;
         }
 
+
         cav.seeds.forEach(seed =>{
             seedsToTransfer ++;
             seed.remove();
@@ -112,9 +116,15 @@ class Tabuleiro{// class do tabuleiro
 
         let result = this.transferSeeds(player, seedsToTransfer, id, outro_Player); // começa a transferência das Seeds
 
-        if(this.check_Player_Cavs(player, outro_Player)) return; // vê se as cavidades do player que está a jogar ficaram vazias com a ultima jogada
+        if(result != -1){ // se a última semente não caiu no armazem, vê se o outro player tem sementes para jogar, se caiu, continua a jogar pois o outro player pode vir a ter mais sementes
+            if(this.check_Player_Cavs(outro_Player, player)) return; // vê se as cavidades do outro player estão todas vazias
+        }
 
-        if(this.check_Player_Cavs(outro_Player, player)) return; // vê se as cavidades do outro player estão todas vazias
+        if(result == -1){ // se a ultima semente caiu no armazem dá check às cavidades do próprio jogador, se não, não dá, pois o outro jogador ainda vai jogar
+            if(this.check_Player_Cavs(player, outro_Player)) return; // vê se as cavidades do player que está a jogar ficaram vazias com a ultima jogada
+        }
+
+        this.lastTurn = this.changeTurn;
 
         if(result == -1) return; // quando a ultima seed cai no armazem joga de novo
 
@@ -234,6 +244,7 @@ class Tabuleiro{// class do tabuleiro
         gameOver.classList.add('textOnBoard');
         this.tabuleiro.append(gameOver);
         this.gameOver = true;
+        this.changeTurn = '';
     }
 }
 
