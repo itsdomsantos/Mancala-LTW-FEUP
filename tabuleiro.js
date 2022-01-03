@@ -22,6 +22,7 @@ class Tabuleiro{// class do tabuleiro
 
       this.draw_objects();
       this.checkIfClicked();
+      
     }
 
     draw_objects(){ // desenha o tabuleiro
@@ -81,14 +82,32 @@ class Tabuleiro{// class do tabuleiro
 
     checkIfClicked(){ // vê se cada cavidade foi clickada  
         this.showWhoIsPlaying(this.changeTurn);
-        
-        this.cavidades.cavTop.forEach(cav =>{
-            cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p1, this.players.p2));
-        })
+        if(this.mode == "computer"){
+            console.log("IS PC MODE");
+            console.log(this.changeTurn);
+            if(this.changeTurn == 'p2'){
+                this.cavidades.cavBot.forEach(cav =>{
+                    cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p2, this.players.p1));
+                })
+            }
+            if(this.changeTurn == 'p1'){
+                const random = Math.floor(Math.random()*this.cavidades.cavTop.length);
+                let cav_aux = this.cavidades.cavTop[random];
+                
+                this.jogada(cav_aux, cav_aux.id, this.players.p1, this.players.p2);
+            }
+        }
+        else{
+            console.log("IS NOT PC MODE");
+            this.cavidades.cavBot.forEach(cav =>{        
+                cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p2, this.players.p1));
+            })
 
-        this.cavidades.cavBot.forEach(cav =>{        
-            cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p2, this.players.p1));
-        })
+            this.cavidades.cavTop.forEach(cav =>{        
+                cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p1, this.players.p2));
+            })
+        }
+        
     }
 
     jogada(cav, id, player, outro_Player){ // trata de cada jogada
