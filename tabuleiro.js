@@ -56,7 +56,7 @@ class Tabuleiro{// class do tabuleiro
     clean_board(){ // limpa o tabuleiro
         if(this.changeTurn == 'p1') 
             this.remove_Text_On_Board('.computer', 0);
-        if(this.changeTurn == 'p2' && this.lastTurn != ''){
+        if(this.changeTurn == 'p2' && this.lastTurn == ''){
             console.log("h2");
             this.remove_Text_On_Board('.player', 0);
         }
@@ -78,7 +78,6 @@ class Tabuleiro{// class do tabuleiro
         this.difficulty = difficulty;
         console.log(this.difficulty);
     }
-
 
     checkIfClicked(){ // vê se cada cavidade foi clickada    
         this.cavidades.cavTop.forEach(cav =>{
