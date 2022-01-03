@@ -2,8 +2,8 @@ import Tabuleiro from "./tabuleiro.js";
 
 // Game
 class Game{
-  constructor(nSeeds, nCavs){
-    this.tabuleiro = new Tabuleiro(nSeeds, nCavs);
+  constructor(nSeeds, nCavs, mode){
+    this.tabuleiro = new Tabuleiro(nSeeds, nCavs, mode);
   }
 }
 
@@ -18,8 +18,33 @@ var slider_seed = document.getElementById("myRangeSeed");
 var output_seed = document.getElementById("output_seed");
 output_seed.innerHTML = slider_seed.value; // Display the default slider value
 
+let currentMode;
+if(document.getElementById("online").checked){
+  currentMode = document.querySelectorAll('.mode')[1];
+}
+if(document.getElementById("computer").checked){
+  currentMode = document.querySelectorAll('.mode')[0];
+}
 
-let game = new Game(slider_seed.value, slider_cav.value); // INÍCIO DO JOGO
+let game = new Game(slider_seed.value, slider_cav.value, currentMode.id); // INÍCIO DO JOGO
+
+// modo do jogo
+const modes = document.querySelectorAll('.mode');  // butoes de modo de jogo
+modes.forEach(mode => {
+  mode.addEventListener('click', choosenMode);
+});
+
+function choosenMode(evt) {
+  currentMode = evt.target;
+  
+  if(document.getElementById("online").checked){
+    document.getElementById("dificuldades").style.opacity = 0;
+  }
+  if(document.getElementById("computer").checked){
+    document.getElementById("dificuldades").style.opacity = 1;
+  }
+}
+
 
 
 // função on change, atualiza as cavidades para as cavidades do slider
@@ -27,7 +52,8 @@ slider_cav.onchange = function() {
   output_cav.innerHTML = this.value;
   
   game.tabuleiro.clean_board();  
-  game = new Game(slider_seed.value, slider_cav.value);
+  console.log(currentMode.id);
+  game = new Game(slider_seed.value, slider_cav.value, currentMode.id);
 }
 
 // função on change, atualiza as sementes para as sementes do slider
@@ -35,7 +61,8 @@ slider_seed.onchange = function() {
   output_seed.innerHTML = this.value;
   
   game.tabuleiro.clean_board();  
-  game = new Game(slider_seed.value, slider_cav.value);
+  console.log(currentMode.id);
+  game = new Game(slider_seed.value, slider_cav.value, currentMode.id);
 }
 
 
@@ -52,9 +79,7 @@ function showOrHideModal(evt){
   if(currentButtonElement.dataset.modalId) { // if the button has the data attribute modalId, it's a 'show' button
   	const targetModalId = currentButtonElement.dataset.modalId // get the target modal id from the data attribute
   	const targetModalElement = document.getElementById(targetModalId); // get the target modal element
-      
-    //if(currentButtonElement.dataset.modalId == 'new-game-modal') game.tabuleiro.showWhoIsPlaying(game.tabuleiro.changeTurn);
-    
+          
     targetModalElement.classList.remove('modal-hidden'); // remove the CSS class used to hide it
   } else { // the button is a 'close' button
   	const parentModal = currentButtonElement.parentElement; // get the parent modal element
@@ -62,7 +87,7 @@ function showOrHideModal(evt){
 
     if(game.tabuleiro.gameOver == true) document.querySelector('.textOnBoard').remove(); // remove a frase do fecho do jogo
     game.tabuleiro.clean_board();  
-    game = new Game(slider_seed.value, slider_cav.value);
+    game = new Game(slider_seed.value, slider_cav.value, currentMode.id);
   }
 }
 
@@ -77,22 +102,4 @@ dificuldades.forEach(dificuldade => {
 function showDificulty(evt) {
   const currentDificulty = evt.target;
   game.tabuleiro.setDifficulty(currentDificulty.id);
-}
-
-const modes = document.querySelectorAll('.mode');  // butoes de modo de jogo
-modes.forEach(mode => {
-  mode.addEventListener('click', choosenMode);
-});
-
-
-function choosenMode(evt) {
-  const currentMode = evt.target;
-  if(document.getElementById("online").checked){
-    document.getElementById("dificuldades").style.opacity = 0;
-    game.tabuleiro.setMode(currentMode.id);
-  }
-  if(document.getElementById("computer").checked){
-    document.getElementById("dificuldades").style.opacity = 1;
-    game.tabuleiro.setMode(currentMode.id);
-  }
 }

@@ -3,15 +3,17 @@ import Armazem from "./armazem.js";
 
 
 class Tabuleiro{// class do tabuleiro
-    constructor(nSeeds, nCavs){
+    constructor(nSeeds, nCavs, mode){
       this.cavidades = new Cavidades(nSeeds, nCavs);
       this.armazemLeft = new Armazem(0);
       this.armazemRight = new Armazem(0);
       this.gameOver = false; // fica a true quando o jogo acaba (serve para limpar o Game Over do tabuleiro)
       this.changeTurn = 'p2'; // muda para a vez do outro jogador
       this.lastTurn = '';
+
+      this.mode = mode;
+      console.log(this.mode + " mode");
       this.difficulty = 'easy';
-      this.mode = 'computer';
 
       this.players = {p1:this.create_player(this.armazemLeft, this.cavidades.cavTop, 'p1'), p2: this.create_player(this.armazemRight, this.cavidades.cavBot, 'p2')}
       this.players.p1.reverse(); // inverte os elementos para o player de cima ser tratado da mesma forma que o de baixo
@@ -21,8 +23,8 @@ class Tabuleiro{// class do tabuleiro
       this.tabuleiro = document.getElementById('tabuleiro');
 
       this.draw_objects();
+      this.showWhoIsPlaying(this.changeTurn);
       this.checkIfClicked();
-      
     }
 
     draw_objects(){ // desenha o tabuleiro
@@ -58,7 +60,6 @@ class Tabuleiro{// class do tabuleiro
         if(this.changeTurn == 'p1') 
             this.remove_Text_On_Board('.computer', 0);
         if(this.changeTurn == 'p2' && this.lastTurn == ''){
-            console.log("h2");
             this.remove_Text_On_Board('.player', 0);
         }
 
@@ -81,24 +82,31 @@ class Tabuleiro{// class do tabuleiro
     }
 
     checkIfClicked(){ // vê se cada cavidade foi clickada  
-        this.showWhoIsPlaying(this.changeTurn);
-        if(this.mode == "computer"){
-            console.log("IS PC MODE");
-            console.log(this.changeTurn);
-            if(this.changeTurn == 'p2'){
+        if(this.mode == 'computer'){ // modo vs computer
+            console.log(this.changeTurn); // print de quem vai jogar
+
+            if(this.changeTurn == 'p1'){
+                const random = Math.floor(Math.random()*this.cavidades.cavTop.length);
+                let cav_aux = this.cavidades.cavTop[random];
+
+                console.log(cav_aux.id, cav_aux.nSeeds); // print do id da cavidade escolhida e das sementes que tem
+                while(cav_aux.nSeeds == 0){
+                    const random = Math.floor(Math.random()*this.cavidades.cavTop.length);
+                    cav_aux = this.cavidades.cavTop[random];
+
+                    console.log(cav_aux.id, cav_aux.nSeeds);// print do id da cavidade escolhida e das sementes que tem
+                }
+                
+                this.jogada(cav_aux, cav_aux.id, this.players.p1, this.players.p2);
+            }
+
+            if(this.changeTurn == 'p2' && this.lastTurn == ''){ // this.lastTurn == '' , pois só queremos acrescentar o event na primeira vez
                 this.cavidades.cavBot.forEach(cav =>{
                     cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p2, this.players.p1));
                 })
             }
-            if(this.changeTurn == 'p1'){
-                const random = Math.floor(Math.random()*this.cavidades.cavTop.length);
-                let cav_aux = this.cavidades.cavTop[random];
-                
-                this.jogada(cav_aux, cav_aux.id, this.players.p1, this.players.p2);
-            }
         }
-        else{
-            console.log("IS NOT PC MODE");
+        else{ // modo online
             this.cavidades.cavBot.forEach(cav =>{        
                 cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p2, this.players.p1));
             })
@@ -106,16 +114,16 @@ class Tabuleiro{// class do tabuleiro
             this.cavidades.cavTop.forEach(cav =>{        
                 cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p1, this.players.p2));
             })
-        }
-        
+        }  
     }
 
     jogada(cav, id, player, outro_Player){ // trata de cada jogada
         let seedsToTransfer = 0;
+        console.log(player.at(player.length - 1) + " jogou"); // print de quem jogou
         
-        if(this.gameOver == true) return;
+        if(this.gameOver == true) return; // game over
 
-        if(player.at(player.length - 1) != this.changeTurn){
+        if(player.at(player.length - 1) != this.changeTurn){ // não é a tua vez de jogar
             this.msgNoTabuleiro('É a vez do adversário!');
             return;
         }
@@ -124,7 +132,6 @@ class Tabuleiro{// class do tabuleiro
             this.msgNoTabuleiro('Jogada Impossíel!\nTenta outra cavidade!');
             return;
         }
-
 
         cav.seeds.forEach(seed =>{
             seedsToTransfer ++;
@@ -146,13 +153,23 @@ class Tabuleiro{// class do tabuleiro
 
         this.lastTurn = this.changeTurn;
 
-        if(result == -1) return; // quando a ultima seed cai no armazem joga de novo
+        if(result == -1) {
+            if(this.mode == 'computer' && this.changeTurn == 'p1') {
+                setTimeout(() => {this.checkIfClicked()}, 5000);
+            }
+            return; // quando a ultima seed cai no armazem joga de novo
+        }
 
         if(this.changeTurn == 'p1') this.remove_Text_On_Board('.computer', 0);
         else this.remove_Text_On_Board('.player', 0);
+
         this.changeTurn = outro_Player.at(outro_Player.length - 1); // muda para a vez do outro jogador
 
-        this.showWhoIsPlaying(this.changeTurn);
+        if(this.mode == 'computer' && this.changeTurn == 'p1') { // se estiver no modo vs computador e for a vez do computador, chama a função novamente para o computador jogar
+            this.showWhoIsPlaying(this.changeTurn);
+            setTimeout(() => {this.checkIfClicked()}, 3000); // 3 segundos para o computador jogar
+        }
+        else this.showWhoIsPlaying(this.changeTurn);
     }
 
     transferSeeds(player, seedsToTransfer, id, outro_Player){ // faz a transferência das Seeds recursivamente, caso chegue ao aramazem ainda com Seeds para distribuir
