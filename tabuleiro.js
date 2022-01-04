@@ -12,7 +12,6 @@ class Tabuleiro{// class do tabuleiro
       this.lastTurn = '';
 
       this.mode = mode;
-      console.log(this.mode + " mode");
       this.difficulty = 'easy';
 
       this.players = {p1:this.create_player(this.armazemLeft, this.cavidades.cavTop, 'p1'), p2: this.create_player(this.armazemRight, this.cavidades.cavBot, 'p2')}
@@ -59,7 +58,7 @@ class Tabuleiro{// class do tabuleiro
     clean_board(){ // limpa o tabuleiro
         if(this.changeTurn == 'p1') 
             this.remove_Text_On_Board('.computer', 0);
-        if(this.changeTurn == 'p2' && this.lastTurn == ''){
+        if(this.changeTurn == 'p2'){
             this.remove_Text_On_Board('.player', 0);
         }
 
@@ -86,7 +85,10 @@ class Tabuleiro{// class do tabuleiro
             console.log(this.changeTurn); // print de quem vai jogar
 
             if(this.changeTurn == 'p1'){
-                const random = Math.floor(Math.random()*this.cavidades.cavTop.length);
+                let max_Seeds = 0;
+                let cav_aux;
+                //Random cav
+                /*const random = Math.floor(Math.random()*this.cavidades.cavTop.length);
                 let cav_aux = this.cavidades.cavTop[random];
 
                 console.log(cav_aux.id, cav_aux.nSeeds); // print do id da cavidade escolhida e das sementes que tem
@@ -95,7 +97,16 @@ class Tabuleiro{// class do tabuleiro
                     cav_aux = this.cavidades.cavTop[random];
 
                     console.log(cav_aux.id, cav_aux.nSeeds);// print do id da cavidade escolhida e das sementes que tem
-                }
+                }*/
+
+                // Escolhe a cavidade com mais sementes mais à direita
+                this.cavidades.cavTop.forEach(cav =>{
+                    console.log(cav.nSeeds, max_Seeds);
+                    if(cav.nSeeds >= max_Seeds) {
+                        max_Seeds = cav.nSeeds;
+                        cav_aux = cav;
+                    }
+                })
                 
                 this.jogada(cav_aux, cav_aux.id, this.players.p1, this.players.p2);
             }

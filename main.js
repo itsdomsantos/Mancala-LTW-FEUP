@@ -26,7 +26,9 @@ if(document.getElementById("computer").checked){
   currentMode = document.querySelectorAll('.mode')[0];
 }
 
+
 let game = new Game(slider_seed.value, slider_cav.value, currentMode.id); // INÍCIO DO JOGO
+
 
 // modo do jogo
 const modes = document.querySelectorAll('.mode');  // butoes de modo de jogo
@@ -52,7 +54,6 @@ slider_cav.onchange = function() {
   output_cav.innerHTML = this.value;
   
   game.tabuleiro.clean_board();  
-  console.log(currentMode.id);
   game = new Game(slider_seed.value, slider_cav.value, currentMode.id);
 }
 
@@ -61,7 +62,6 @@ slider_seed.onchange = function() {
   output_seed.innerHTML = this.value;
   
   game.tabuleiro.clean_board();  
-  console.log(currentMode.id);
   game = new Game(slider_seed.value, slider_cav.value, currentMode.id);
 }
 
