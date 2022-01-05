@@ -12,7 +12,7 @@ class Tabuleiro{// class do tabuleiro
       this.lastTurn = '';
 
       this.mode = mode;
-      this.difficulty = 'easy';
+      this.difficulty = 'medium';
 
       this.players = {p1:this.create_player(this.armazemLeft, this.cavidades.cavTop, 'p1'), p2: this.create_player(this.armazemRight, this.cavidades.cavBot, 'p2')}
       this.players.p1.reverse(); // inverte os elementos para o player de cima ser tratado da mesma forma que o de baixo
@@ -82,39 +82,93 @@ class Tabuleiro{// class do tabuleiro
 
     checkIfClicked(){ // vê se cada cavidade foi clickada  
         if(this.mode == 'computer'){ // modo vs computer
-            console.log(this.changeTurn); // print de quem vai jogar
+            if(this.difficulty == 'easy'){ // Dificuldade "easy"
+                console.log(this.changeTurn); // print de quem vai jogar
 
-            if(this.changeTurn == 'p1'){
-                let max_Seeds = 0;
-                let cav_aux;
-                //Random cav
-                /*const random = Math.floor(Math.random()*this.cavidades.cavTop.length);
-                let cav_aux = this.cavidades.cavTop[random];
+                if(this.changeTurn == 'p1'){
+                    let max_Seeds = 0;
+                    let cav_aux;
+                    //Random cav
+                    /*const random = Math.floor(Math.random()*this.cavidades.cavTop.length);
+                    let cav_aux = this.cavidades.cavTop[random];
 
-                console.log(cav_aux.id, cav_aux.nSeeds); // print do id da cavidade escolhida e das sementes que tem
-                while(cav_aux.nSeeds == 0){
-                    const random = Math.floor(Math.random()*this.cavidades.cavTop.length);
-                    cav_aux = this.cavidades.cavTop[random];
+                    console.log(cav_aux.id, cav_aux.nSeeds); // print do id da cavidade escolhida e das sementes que tem
+                    while(cav_aux.nSeeds == 0){
+                        const random = Math.floor(Math.random()*this.cavidades.cavTop.length);
+                        cav_aux = this.cavidades.cavTop[random];
 
-                    console.log(cav_aux.id, cav_aux.nSeeds);// print do id da cavidade escolhida e das sementes que tem
-                }*/
+                        console.log(cav_aux.id, cav_aux.nSeeds);// print do id da cavidade escolhida e das sementes que tem
+                    }*/
 
-                // Escolhe a cavidade com mais sementes mais à direita
-                this.cavidades.cavTop.forEach(cav =>{
-                    console.log(cav.nSeeds, max_Seeds);
-                    if(cav.nSeeds >= max_Seeds) {
-                        max_Seeds = cav.nSeeds;
-                        cav_aux = cav;
-                    }
-                })
-                
-                this.jogada(cav_aux, cav_aux.id, this.players.p1, this.players.p2);
+                    // Escolhe a cavidade com mais sementes mais à direita
+                    this.cavidades.cavTop.forEach(cav =>{
+                        console.log(cav.nSeeds, max_Seeds);
+                        if(cav.nSeeds >= max_Seeds) {
+                            max_Seeds = cav.nSeeds;
+                            cav_aux = cav;
+                        }
+                    })
+                    
+                    this.jogada(cav_aux, cav_aux.id, this.players.p1, this.players.p2);
+                }
+
+                if(this.changeTurn == 'p2' && this.lastTurn == ''){ // this.lastTurn == '' , pois só queremos acrescentar o event na primeira vez
+                    this.cavidades.cavBot.forEach(cav =>{
+                        cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p2, this.players.p1));
+                    })
+                }
             }
 
-            if(this.changeTurn == 'p2' && this.lastTurn == ''){ // this.lastTurn == '' , pois só queremos acrescentar o event na primeira vez
-                this.cavidades.cavBot.forEach(cav =>{
-                    cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p2, this.players.p1));
-                })
+            if(this.difficulty == 'medium'){ // Dificuldade "easy"
+                console.log(this.players);
+                let cav_aux;
+                let found = false;
+
+                if(this.changeTurn == 'p1'){
+                    this.cavidades.cavTop.forEach(cav => (console.log(cav)));
+                    for(let i = this.cavidades.cavTop.length-1; i >=0; i--){
+                        if(this.cavidades.cavTop[i].nSeeds == this.cavidades.cavTop.length -i) {
+                            console.log(i);
+                            found = true;
+                            cav_aux = this.cavidades.cavTop[i];
+                        }
+                    }
+                    if(found == true){
+                        this.jogada(cav_aux, cav_aux.id, this.players.p1, this.players.p2);
+
+                    }
+                    else{
+                        let max_Seeds = 0;
+                        let cav_aux;
+                        //Random cav
+                        /*const random = Math.floor(Math.random()*this.cavidades.cavTop.length);
+                        let cav_aux = this.cavidades.cavTop[random];
+
+                        console.log(cav_aux.id, cav_aux.nSeeds); // print do id da cavidade escolhida e das sementes que tem
+                        while(cav_aux.nSeeds == 0){
+                            const random = Math.floor(Math.random()*this.cavidades.cavTop.length);
+                            cav_aux = this.cavidades.cavTop[random];
+
+                            console.log(cav_aux.id, cav_aux.nSeeds);// print do id da cavidade escolhida e das sementes que tem
+                        }*/
+
+                        // Escolhe a cavidade com mais sementes mais à direita
+                        this.cavidades.cavTop.forEach(cav =>{
+                            console.log(cav.nSeeds, max_Seeds);
+                            if(cav.nSeeds >= max_Seeds) {
+                                max_Seeds = cav.nSeeds;
+                                cav_aux = cav;
+                            }
+                        })
+                        
+                        this.jogada(cav_aux, cav_aux.id, this.players.p1, this.players.p2);
+                    }
+                }
+                if(this.changeTurn == 'p2' && this.lastTurn == ''){ // this.lastTurn == '' , pois só queremos acrescentar o event na primeira vez
+                    this.cavidades.cavBot.forEach(cav =>{
+                        cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p2, this.players.p1));
+                    })
+                }  
             }
         }
         else{ // modo online
