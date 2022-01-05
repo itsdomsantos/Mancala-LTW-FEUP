@@ -4,7 +4,7 @@ import Jogada from "./Jogada.js";
 
 
 class Tabuleiro{// class do tabuleiro
-    constructor(nSeeds, nCavs, mode){
+    constructor(nSeeds, nCavs, mode, difficulty){
       this.cavidades = new Cavidades(nSeeds, nCavs);
       this.armazemLeft = new Armazem(0);
       this.armazemRight = new Armazem(0);
@@ -17,7 +17,7 @@ class Tabuleiro{// class do tabuleiro
       this.tabuleiro = document.getElementById('tabuleiro');
 
       this.draw_objects();
-      this.jogada = new Jogada(this.tabuleiro, this.cavidades, this.players, mode, 'medium');
+      this.jogada = new Jogada(this.tabuleiro, this.cavidades, this.players, mode, difficulty);
     }
 
     draw_objects(){ // desenha o tabuleiro
@@ -50,10 +50,10 @@ class Tabuleiro{// class do tabuleiro
     }
 
     clean_board(){ // limpa o tabuleiro
-        if(this.changeTurn == 'p1') 
-            this.remove_Text_On_Board('.computer', 0);
-        if(this.changeTurn == 'p2'){
-            this.remove_Text_On_Board('.player', 0);
+        if(this.jogada.changeTurn == 'p1') 
+            this.jogada.remove_Text_On_Board('.computer', 0);
+        if(this.jogada.changeTurn == 'p2'){
+            this.jogada.remove_Text_On_Board('.player', 0);
         }
 
         this.armazemLeft.ele.remove(); 
@@ -62,16 +62,6 @@ class Tabuleiro{// class do tabuleiro
         this.players = {};
         this.cavidades.cavTop.ele.innerHTML = '';
         this.cavidades.cavBot.ele.innerHTML = '';
-    }
-
-    setMode(mode){
-        this.mode = mode;
-        console.log(this.mode);
-    }
-
-    setDifficulty(difficulty){
-        this.difficulty = difficulty;
-        console.log(this.difficulty);
     }
 }
 

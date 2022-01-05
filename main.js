@@ -2,8 +2,8 @@ import Tabuleiro from "./tabuleiro.js";
 
 // Game
 class Game{
-  constructor(nSeeds, nCavs, mode){
-    this.tabuleiro = new Tabuleiro(nSeeds, nCavs, mode);
+  constructor(nSeeds, nCavs, mode, difficulty){
+    this.tabuleiro = new Tabuleiro(nSeeds, nCavs, mode, difficulty);
   }
 }
 
@@ -18,6 +18,8 @@ var slider_seed = document.getElementById("myRangeSeed");
 var output_seed = document.getElementById("output_seed");
 output_seed.innerHTML = slider_seed.value; // Display the default slider value
 
+
+
 let currentMode;
 if(document.getElementById("online").checked){
   currentMode = document.querySelectorAll('.mode')[1];
@@ -26,8 +28,11 @@ if(document.getElementById("computer").checked){
   currentMode = document.querySelectorAll('.mode')[0];
 }
 
+let currentDificulty = document.querySelectorAll('.dificuldade')[0];
 
-let game = new Game(slider_seed.value, slider_cav.value, currentMode.id); // INÍCIO DO JOGO
+
+
+let game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id); // INÍCIO DO JOGO
 
 
 // modo do jogo
@@ -47,6 +52,17 @@ function choosenMode(evt) {
   }
 }
 
+// butoes de dificuldade
+const dificuldades = document.querySelectorAll('.dificuldade');
+
+dificuldades.forEach(dificuldade => {
+  dificuldade.addEventListener('click', showDificulty);
+});
+
+function showDificulty(evt) {
+  currentDificulty = evt.target;
+}
+
 
 
 // função on change, atualiza as cavidades para as cavidades do slider
@@ -54,7 +70,7 @@ slider_cav.onchange = function() {
   output_cav.innerHTML = this.value;
   
   game.tabuleiro.clean_board();  
-  game = new Game(slider_seed.value, slider_cav.value, currentMode.id);
+  game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
 }
 
 // função on change, atualiza as sementes para as sementes do slider
@@ -62,7 +78,7 @@ slider_seed.onchange = function() {
   output_seed.innerHTML = this.value;
   
   game.tabuleiro.clean_board();  
-  game = new Game(slider_seed.value, slider_cav.value, currentMode.id);
+  game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
 }
 
 
@@ -87,19 +103,6 @@ function showOrHideModal(evt){
 
     if(game.tabuleiro.gameOver == true) document.querySelector('.textOnBoard').remove(); // remove a frase do fecho do jogo
     game.tabuleiro.clean_board();  
-    game = new Game(slider_seed.value, slider_cav.value, currentMode.id);
+    game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
   }
-}
-
-
-//butoes de dificuldade
-const dificuldades = document.querySelectorAll('.dificuldade');
-
-dificuldades.forEach(dificuldade => {
-  dificuldade.addEventListener('click', showDificulty);
-});
-
-function showDificulty(evt) {
-  const currentDificulty = evt.target;
-  game.tabuleiro.setDifficulty(currentDificulty.id);
 }

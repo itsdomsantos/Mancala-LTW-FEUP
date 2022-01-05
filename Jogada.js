@@ -85,7 +85,6 @@ class Jogada{
 
     jogada(cav, id, player, outro_Player){ // trata de cada jogada
         let seedsToTransfer = 0;
-        console.log(player.at(player.length - 1) + " jogou"); // print de quem jogou
         
         if(this.gameOver == true) return; // game over
 
