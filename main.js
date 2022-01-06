@@ -98,26 +98,26 @@ function showOrHideModal(evt){
           
     targetModalElement.classList.remove('modal-hidden'); // remove the CSS class used to hide it
   } else { // the button is a 'close' button
-  	const parentModal = currentButtonElement.parentElement; // get the parent modal element
-    parentModal.classList.add('modal-hidden'); // add the CSS class used to hide it
+    if(currentButtonElement.id == 'surrender'){ // se for surrender dá uma msg e espera ate a msg desaparecer para fechar o jogo
+      game.tabuleiro.jogada.setSurrender();
+      game.tabuleiro.jogada.msgNoTabuleiro('Player Surrender. Computer Wins the Game!', 2500);
 
-    if(game.tabuleiro.gameOver == true) document.querySelector('.textOnBoard').remove(); // remove a frase do fecho do jogo
-    game.tabuleiro.clean_board();  
-    game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
-  }
-}
+      document.getElementById('surrender').style.visibility = 'hidden';
+      setTimeout(() =>{
+        const parentModal = currentButtonElement.parentElement; // get the parent modal element
+        parentModal.classList.add('modal-hidden'); // add the CSS class used to hide it
 
+        game.tabuleiro.clean_board();  
+        game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
+      }, 2500);
+    }
+    else{
+      const parentModal = currentButtonElement.parentElement; // get the parent modal element
+      parentModal.classList.add('modal-hidden'); // add the CSS class used to hide it
 
-const surrender = document.getElementById('surrender');
-console.log(surrender);
-
-surrender.addEventListener('click', showMsgSurrender);
-
-function showMsgSurrender(){
-  game.tabuleiro.jogada.msgNoTabuleiro('Player Surrender. Computer Wins the Game!', 3000);
-
-  game.tabuleiro.jogada.setSurrender();
-  document.getElementById('surrender').remove();
-  // document.getElementById('quitGame').style.left = 55;
-  // dar append sempre que iicia o jogo
+      if(game.tabuleiro.jogada.gameOver == true) document.querySelector('.textOnBoard').remove(); // remove a frase do fecho do jogo
+      game.tabuleiro.clean_board();  
+      game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
+    }
+  } 
 }

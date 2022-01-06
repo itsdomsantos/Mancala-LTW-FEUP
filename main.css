@@ -104,7 +104,7 @@ button:hover {
   top: 80%;
   left: 50%;
   border-radius: 10px;
-  transform: translateX(-50%, -50%);
+  transform: translateX(-50%);
 }
 
 /* Aspeto do botão Surrender */
@@ -113,9 +113,9 @@ button:hover {
   height: 50px;
   position: absolute;
   top: 80%;
-  right: 50%;
+  left: 50%;
   border-radius: 10px;
-  transform: translateX(-50%, 50%);
+  transform: translateX(-50%);
 }
 
 /* esconde o modal quando o butão close é carregado */
@@ -368,4 +368,20 @@ h1 {
   left: 50%;
   bottom: 0%;
   transform: translate(-50%, 50%);
+}
+
+/* counter das sementes dos armazens de ambos os lados */
+.counter {
+  width: fit-content;
+  padding: 25px;
+  background-color: #47331fc1;
+  color: white;
+  font-weight: bold;
+  border: 1.5px solid #ebb386;
+  border-radius: 10px;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(125%, -50%);
 }

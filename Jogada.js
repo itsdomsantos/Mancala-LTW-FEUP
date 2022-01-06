@@ -16,6 +16,7 @@ class Jogada{
     }
 
     checkIfClicked(){ // vê se cada cavidade foi clickada  
+        this.counter();
         if(this.mode == 'computer'){ // modo vs computer
             let max_Seeds = 0;
             let cav_aux;
@@ -120,6 +121,7 @@ class Jogada{
         this.lastTurn = this.changeTurn;
 
         if(result == -1) {
+            this.counter();
             if(this.mode == 'computer' && this.changeTurn == 'p1') {
                 setTimeout(() => {this.checkIfClicked()}, 3000);
             }
@@ -130,10 +132,11 @@ class Jogada{
         else this.remove_Text_On_Board('.player', 0);
 
         this.changeTurn = outro_Player.at(outro_Player.length - 1); // muda para a vez do outro jogador
+        this.counter();
 
         if(this.mode == 'computer' && this.changeTurn == 'p1') { // se estiver no modo vs computador e for a vez do computador, chama a função novamente para o computador jogar
             this.showWhoIsPlaying(this.changeTurn);
-            setTimeout(() => {this.checkIfClicked()}, 3000); // 3 segundos para o computador jogar
+            setTimeout(() => {this.checkIfClicked()}, 2000); // 3 segundos para o computador jogar
         }
         else this.showWhoIsPlaying(this.changeTurn);
     }
@@ -231,24 +234,41 @@ class Jogada{
         setTimeout(() => {document.querySelector(msgToRemove).remove()}, time); // Ao fim de 1000 ms a função remove o alerta de "Jogada Impossível";
     }
 
-    setSurrender(){
+    counter(){ // contador das sementes nos armazens
+        if(this.lastTurn != '' || this.surrender == true) document.querySelector('.counter').remove();
+        const counter = document.createElement('span');
+        counter.innerText = this.mode + ': ' + this.players.p1.at(this.players.p1.length-2).nSeeds + '\n\nYou: ' + this.players.p2.at(this.players.p2.length-2).nSeeds;
+        counter.classList.add('counter');
+        this.tabuleiro.append(counter);
+    }
+
+    setSurrender(){ // surrender foi carregado
         this.surrender = true;
         this.GameOver();
     }
 
     GameOver(){ // termina o jogo
+        this.counter();
         if(this.surrender == true){
             this.gameOver = true;
+
+            if(this.changeTurn == 'p1') this.remove_Text_On_Board('.computer', 0);
+            else this.remove_Text_On_Board('.player', 0);
+
             this.changeTurn = '';
             return;
         }
+
+        document.getElementById('surrender').style.visibility = 'hidden';
+        document.getElementById('quitGame').style.visibility = 'visible';
+        
         if(this.changeTurn == 'p1') this.remove_Text_On_Board('.computer', 0);
         else this.remove_Text_On_Board('.player', 0);
         const gameOver = document.createElement('span');
         if(this.players.p1.at(this.players.p1.length-2).nSeeds > this.players.p2.at(this.players.p2.length-2).nSeeds){
             gameOver.innerText = 'Computer Won! You Lost :(\n Computer: ' + this.players.p1.at(this.players.p1.length-2).nSeeds + '\n You: ' + this.players.p2.at(this.players.p2.length-2).nSeeds;
         }
-        else if(this.players.p1.at(this.players.p1.length-2).nSeeds < this.players.p1.at(this.players.p1.length-2).nSeeds){
+        else if(this.players.p1.at(this.players.p1.length-2).nSeeds < this.players.p2.at(this.players.p2.length-2).nSeeds){
             gameOver.innerText = 'You Won The Match! :)\n Computer: ' + this.players.p1.at(this.players.p1.length-2).nSeeds + '\n You: ' + this.players.p2.at(this.players.p2.length-2).nSeeds;
         }
         else{

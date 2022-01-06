@@ -16,6 +16,8 @@ class Tabuleiro{// class do tabuleiro
 
       this.tabuleiro = document.getElementById('tabuleiro');
 
+      document.getElementById('quitGame').style.visibility = 'hidden';
+      document.getElementById('surrender').style.visibility = 'visible';
       this.draw_objects();
       this.jogada = new Jogada(this.tabuleiro, this.cavidades, this.players, mode, difficulty);
     }
@@ -50,7 +52,12 @@ class Tabuleiro{// class do tabuleiro
     }
 
     clean_board(){ // limpa o tabuleiro
-        this.jogada.remove_Text_On_Board('.player', 0);
+        if(this.jogada.changeTurn == 'p2' && this.jogada.lastTurn == '')
+            this.jogada.remove_Text_On_Board('.player', 0);
+        if(this.jogada.changeTurn == 'p1' && this.jogada.lastTurn == '')
+            this.jogada.remove_Text_On_Board('.computer', 0);
+
+        document.querySelector('.counter').remove();
 
         this.armazemLeft.ele.remove(); 
         this.armazemRight.ele.remove(); 
