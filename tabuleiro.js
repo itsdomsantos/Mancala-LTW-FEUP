@@ -50,11 +50,7 @@ class Tabuleiro{// class do tabuleiro
     }
 
     clean_board(){ // limpa o tabuleiro
-        if(this.jogada.changeTurn == 'p1') 
-            this.jogada.remove_Text_On_Board('.computer', 0);
-        if(this.jogada.changeTurn == 'p2'){
-            this.jogada.remove_Text_On_Board('.player', 0);
-        }
+        this.jogada.remove_Text_On_Board('.player', 0);
 
         this.armazemLeft.ele.remove(); 
         this.armazemRight.ele.remove(); 

@@ -106,3 +106,18 @@ function showOrHideModal(evt){
     game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
   }
 }
+
+
+const surrender = document.getElementById('surrender');
+console.log(surrender);
+
+surrender.addEventListener('click', showMsgSurrender);
+
+function showMsgSurrender(){
+  game.tabuleiro.jogada.msgNoTabuleiro('Player Surrender. Computer Wins the Game!', 3000);
+
+  game.tabuleiro.jogada.setSurrender();
+  document.getElementById('surrender').remove();
+  // document.getElementById('quitGame').style.left = 55;
+  // dar append sempre que iicia o jogo
+}

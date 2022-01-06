@@ -5,6 +5,7 @@ class Jogada{
         this.players = players;
         this.mode = mode;
         this.difficulty = difficulty;
+        this.surrender = false;
 
         this.gameOver = false; // fica a true quando o jogo acaba (serve para limpar o Game Over do tabuleiro)
         this.changeTurn = 'p2'; // muda para a vez do outro jogador
@@ -89,12 +90,12 @@ class Jogada{
         if(this.gameOver == true) return; // game over
 
         if(player.at(player.length - 1) != this.changeTurn){ // não é a tua vez de jogar
-            this.msgNoTabuleiro('É a vez do adversário!');
+            this.msgNoTabuleiro('É a vez do adversário!', 1000);
             return;
         }
 
         if(cav.nSeeds == 0){
-            this.msgNoTabuleiro('Jogada Impossíel!\nTenta outra cavidade!');
+            this.msgNoTabuleiro('Jogada Impossíel!\nTenta outra cavidade!', 1000);
             return;
         }
 
@@ -218,19 +219,29 @@ class Jogada{
         this.tabuleiro.append(msg);
     }
 
-    msgNoTabuleiro(mensagem){ // jogada impossivel
+    msgNoTabuleiro(mensagem, time){ // jogada impossivel
         const msg = document.createElement('span');
         msg.innerText = mensagem;
         msg.classList.add('textOnBoard');
         this.tabuleiro.append(msg);
-        this.remove_Text_On_Board('.textOnBoard', 1000);
+        this.remove_Text_On_Board('.textOnBoard', time);
     }
 
     remove_Text_On_Board(msgToRemove, time){ // remove a msg que está no tabuleiro
         setTimeout(() => {document.querySelector(msgToRemove).remove()}, time); // Ao fim de 1000 ms a função remove o alerta de "Jogada Impossível";
     }
 
+    setSurrender(){
+        this.surrender = true;
+        this.GameOver();
+    }
+
     GameOver(){ // termina o jogo
+        if(this.surrender == true){
+            this.gameOver = true;
+            this.changeTurn = '';
+            return;
+        }
         if(this.changeTurn == 'p1') this.remove_Text_On_Board('.computer', 0);
         else this.remove_Text_On_Board('.player', 0);
         const gameOver = document.createElement('span');
