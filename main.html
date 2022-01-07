@@ -52,24 +52,24 @@
 
   <!-- Parte das configurações -->
   <div class="modal modal-hidden" id="configuration-modal">
-    <h1>Configurações</h1>
+    <h1>Configuration</h1>
     <!-- Range de Cavidades -->
     <div class="ncav">
-      <h3>Cavidades</h3> <input type="range" min="3" max="6" value="0" class="slider" id="myRangeCav" > <output id = "output_cav"><h3>3</h3></output>
+      <h3>Cavities</h3> <input type="range" min="3" max="6" value="0" class="slider" id="myRangeCav" > <output id = "output_cav"><h3>3</h3></output>
 
-      <h3>Sementes</h3> <input type="range" min="3" max="6" value="0" class="slider" id="myRangeSeed"> <output id = "output_seed"><h3>3</h3></output>
+      <h3>Seeds</h3> <input type="range" min="3" max="6" value="0" class="slider" id="myRangeSeed"> <output id = "output_seed"><h3>3</h3></output>
 
       <div class="modes">
-        <h3>Computador</h3> 
+        <h3>Computer</h3> 
         <input class="mode" name="mode" id="computer" type="radio" checked>
         <h3>On-line</h3> 
         <input class="mode" name="mode" id="online" type="radio">
       </div>
 
       <div id="dificuldades">
-        <h3> Nível de Dificuldade</h3><br>
+        <h3> Level of Difficulty</h3><br>
         <div class="dificuldades">
-          <input class="dificuldade" id="easy" type="button" value="Easy">
+          <input class="dificuldade selected" id="easy" type="button" value="Easy">
           <input class="dificuldade" id="medium" type="button" value="Medium">
           <input class="dificuldade" id="hard" type="button" value="Hard">
         </div>
@@ -81,7 +81,7 @@
 
   <!-- Parte das instruções -->
   <div class="modal modal-hidden" id="instructions-modal">
-    <h1>Instruções</h1>
+    <h1>Instructions</h1>
     <div class="instructions">
       Players take turns to play seeds. To take a turn, the player first chooses a non-empty hollow in the near row and picks up all the seeds contained in it.
       <br>
@@ -98,8 +98,11 @@
 
   <!-- Parte das Classificações -->
   <div class="modal modal-hidden" id="classifications-modal">
-    <h1>Classificações</h1>
-    <button class="modal-close">X</button>
+    <h1>Classifications</h1>
+    <div class="classificações">
+
+    </div>
+    <button class="modal-close" id="classificações">X</button>
   </div>
 
 </body>

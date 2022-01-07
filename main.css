@@ -306,7 +306,7 @@ h1 {
 }
 
 /* quando é carregado */
-.dificuldade:focus {
+.dificuldade.selected {
   box-shadow: 0 0 5px blue;
   opacity: 1;
 }
@@ -384,4 +384,18 @@ h1 {
   top: 50%;
   right: 0;
   transform: translate(125%, -50%);
+}
+
+
+
+/* Classificações */
+.classificações{
+  width: 70%;
+  padding: 50px;
+  text-align: center;
+  background-color: #47331fc1;
+  color: white;
+  font-weight: bold;
+  border: 1.5px solid #ebb386;
+  border-radius: 10px;
 }

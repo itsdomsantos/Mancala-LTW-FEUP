@@ -6,6 +6,7 @@ class Jogada{
         this.mode = mode;
         this.difficulty = difficulty;
         this.surrender = false;
+        this.victory = false;
 
         this.gameOver = false; // fica a true quando o jogo acaba (serve para limpar o Game Over do tabuleiro)
         this.changeTurn = 'p2'; // muda para a vez do outro jogador
@@ -270,6 +271,7 @@ class Jogada{
         }
         else if(this.players.p1.at(this.players.p1.length-2).nSeeds < this.players.p2.at(this.players.p2.length-2).nSeeds){
             gameOver.innerText = 'You Won The Match! :)\n Computer: ' + this.players.p1.at(this.players.p1.length-2).nSeeds + '\n You: ' + this.players.p2.at(this.players.p2.length-2).nSeeds;
+            this.victory = true;
         }
         else{
             gameOver.innerText = 'Close Match, That is a Tie! :|';

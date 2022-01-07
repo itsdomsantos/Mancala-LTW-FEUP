@@ -7,6 +7,13 @@ class Game{
   }
 }
 
+let nrJogosEasy = 0;
+let nrJogosMedium = 0;
+let nrJogosHard = 0;
+let nrVictoryEasy = 0;
+let nrVictoryMedium = 0;
+let nrVictoryHard = 0;
+
 
 /* Gera as cavidades */
 var slider_cav = document.getElementById("myRangeCav");
@@ -60,7 +67,9 @@ dificuldades.forEach(dificuldade => {
 });
 
 function showDificulty(evt) {
+  dificuldades.forEach(dificuldade => dificuldade.classList.remove('selected'));
   currentDificulty = evt.target;
+  currentDificulty.classList.add('selected');
 }
 
 
@@ -95,10 +104,21 @@ function showOrHideModal(evt){
   if(currentButtonElement.dataset.modalId) { // if the button has the data attribute modalId, it's a 'show' button
   	const targetModalId = currentButtonElement.dataset.modalId // get the target modal id from the data attribute
   	const targetModalElement = document.getElementById(targetModalId); // get the target modal element
+
+    if(currentButtonElement.dataset.modalId == 'new-game-modal' && currentDificulty.id == 'easy') nrJogosEasy ++;
+    if(currentButtonElement.dataset.modalId == 'new-game-modal' && currentDificulty.id == 'medium') nrJogosMedium ++;
+    if(currentButtonElement.dataset.modalId == 'new-game-modal' && currentDificulty.id == 'hard') nrJogosHard ++;
+
+    if(currentButtonElement.dataset.modalId == 'classifications-modal') displayClassifications();
           
     targetModalElement.classList.remove('modal-hidden'); // remove the CSS class used to hide it
   } else { // the button is a 'close' button
+    console.log(game.tabuleiro.jogada.victory);
     if(currentButtonElement.id == 'surrender'){ // se for surrender dá uma msg e espera ate a msg desaparecer para fechar o jogo
+      if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'easy') nrVictoryEasy ++;
+      if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'medium') nrVictoryMedium ++;
+      if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'hard')  nrVictoryHard ++;
+
       game.tabuleiro.jogada.setSurrender();
       game.tabuleiro.jogada.msgNoTabuleiro('Player Surrender. Computer Wins the Game!', 2500);
 
@@ -111,13 +131,41 @@ function showOrHideModal(evt){
         game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
       }, 2500);
     }
-    else{
-      const parentModal = currentButtonElement.parentElement; // get the parent modal element
-      parentModal.classList.add('modal-hidden'); // add the CSS class used to hide it
-
-      if(game.tabuleiro.jogada.gameOver == true) document.querySelector('.textOnBoard').remove(); // remove a frase do fecho do jogo
-      game.tabuleiro.clean_board();  
-      game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
+    
+    if(currentButtonElement.id == 'quitGame'){
+      if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'easy') nrVictoryEasy ++;
+      if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'medium') nrVictoryMedium ++;
+      if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'hard')  nrVictoryHard ++;
     }
+
+    if(currentButtonElement.id == 'classificações'){
+      document.querySelector('.classificações').remove();
+      document.querySelector('.classificações').remove();
+    }
+    const parentModal = currentButtonElement.parentElement; // get the parent modal element
+    parentModal.classList.add('modal-hidden'); // add the CSS class used to hide it
+
+    if(game.tabuleiro.jogada.gameOver == true) document.querySelector('.textOnBoard').remove(); // remove a frase do fecho do jogo
+    game.tabuleiro.clean_board();  
+    game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
   } 
+}
+
+
+
+/////* Classificações */////
+function displayClassifications(){
+  document.querySelector('.classificações').remove();
+  const msg = document.createElement('div');
+  const msg1 = document.createElement('div');
+  const msg2 = document.createElement('div');
+  msg.innerHTML = 'Difficulty:&nbsp;&nbsp;&nbsp;Easy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + 'Games:&nbsp;&nbsp;&nbsp;' + nrJogosEasy + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Victories:&nbsp;&nbsp;&nbsp;' + nrVictoryEasy;
+  msg1.innerHTML = 'Difficulty:&nbsp;&nbsp;&nbsp;Medium&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + 'Games:&nbsp;&nbsp;&nbsp;' + nrJogosMedium + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Victories:&nbsp;&nbsp;&nbsp;' + nrVictoryMedium;
+  msg2.innerHTML = 'Difficulty:&nbsp;&nbsp;&nbsp;Hard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + 'Games:&nbsp;&nbsp;&nbsp;' + nrJogosHard + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Victories:&nbsp;&nbsp;&nbsp;' + nrVictoryHard;
+  msg.classList.add('classificações');
+  msg1.classList.add('classificações');
+  msg2.classList.add('classificações');
+  document.getElementById('classifications-modal').append(msg);
+  document.getElementById('classifications-modal').append(msg1);
+  document.getElementById('classifications-modal').append(msg2);
 }
