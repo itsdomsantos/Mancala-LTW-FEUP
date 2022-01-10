@@ -89,7 +89,6 @@ class Jogada{
 
                     if(found == false){
                         let found2 = false;
-                        let cav_aux2;
 
                         //codigo do hard
                         for(let i = 0; i <= this.players.p1.length-3; i++){
@@ -105,17 +104,15 @@ class Jogada{
                             }
                         }
 
-                        // vê se o outro player consegue roubar sementes
+                        // vê se o outro player consegue roubar sementes, se sim joga essa
                         for(let i = 0; i <= this.players.p2.length-3; i++){
                             let nrSeeds = this.players.p2.at(i).nSeeds;
 
-                            console.log(this.players.p2.at(i), this.players.p1.at(this.players.p2.length - (i + nrSeeds + 3)));
                             if(nrSeeds == 0 || this.players.p2.at(i+nrSeeds) == undefined || this.players.p2.at(i+nrSeeds) == 'p2') {
                                 continue;
                             }
                             else if(this.players.p2.at(i+nrSeeds).nSeeds == 0 && this.players.p1.at(this.players.p2.length - (i + nrSeeds + 3)).nSeeds != 0){
                                 cav_aux = this.players.p1.at(this.players.p2.length - (i + nrSeeds + 3));
-                                console.log(cav_aux2);
                                 found2 = true;
                                 break;
                             }
@@ -123,7 +120,6 @@ class Jogada{
 
 
                         if(found2 == false){
-                            console.log("hey");
                             // Escolhe a cavidade com mais sementes mais à direita
                             this.cavidades.cavTop.forEach(cav =>{
                                 if(cav.nSeeds > max_Seeds) {
@@ -134,7 +130,6 @@ class Jogada{
                         }
                     }
 
-                    console.log(cav_aux);
                     this.jogada(cav_aux, cav_aux.id, this.players.p1, this.players.p2);
                 }
                 if(this.changeTurn == 'p2' && this.lastTurn == ''){ // this.lastTurn == '' , pois só queremos acrescentar o event na primeira vez
@@ -218,8 +213,10 @@ class Jogada{
 
             if(player.at(i).nSeeds == 0 && seedsToTransfer == 1 && player.at(length - 1) == this.changeTurn && i != player.length - 2){
                 this.steal_Seeds(i, player, outro_Player);
+                player.at(i).nSeeds --;
+                player.at(i).setNewNumberSeeds();
             }
-
+            
             player.at(i).nSeeds ++;
             player.at(i).setNewNumberSeeds();
 
@@ -247,7 +244,7 @@ class Jogada{
         outro_Player.at(outro_Player.length - (id + 3)).nSeeds = 0;
         outro_Player.at(outro_Player.length - (id + 3)).setNewNumberSeeds();
 
-        player.at(player.length - 2).nSeeds += helper_guy;
+        player.at(player.length - 2).nSeeds += helper_guy + 1;
         player.at(player.length - 2).setNewNumberSeeds();
     }
 
