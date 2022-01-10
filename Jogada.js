@@ -71,6 +71,42 @@ class Jogada{
                     })
                 }  
             }
+            else if(this.difficulty == 'hard'){
+                if(this.changeTurn == 'p1'){
+                    let found = false;
+
+                    // codigo do modo medium
+                    for(let i = this.players.p1.length-3; i >=0; i--){
+                        if(this.players.p1.at(i).nSeeds == (this.players.p1.length-2 - i) ){
+                            cav_aux = this.players.p1.at(i);
+                            found = true;
+                            break;
+                        }
+                    }
+
+
+                    // codigo do modo hard
+                
+
+                    //codigo do modo easy
+                    if(found == false){
+                        // Escolhe a cavidade com mais sementes mais à direita
+                        this.cavidades.cavTop.forEach(cav =>{
+                            if(cav.nSeeds >= max_Seeds) {
+                                max_Seeds = cav.nSeeds;
+                                cav_aux = cav;
+                            }
+                        })
+                    }
+                    
+                    this.jogada(cav_aux, cav_aux.id, this.players.p1, this.players.p2);
+                }
+                if(this.changeTurn == 'p2' && this.lastTurn == ''){ // this.lastTurn == '' , pois só queremos acrescentar o event na primeira vez
+                    this.cavidades.cavBot.forEach(cav =>{
+                        cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p2, this.players.p1));
+                    })
+                }
+            }
         }
         else{ // modo online
             this.cavidades.cavBot.forEach(cav =>{        
