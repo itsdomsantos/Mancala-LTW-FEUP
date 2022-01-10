@@ -113,7 +113,7 @@ function showOrHideModal(evt){
           
     targetModalElement.classList.remove('modal-hidden'); // remove the CSS class used to hide it
   } else { // the button is a 'close' button
-    console.log(game.tabuleiro.jogada.victory);
+
     if(currentButtonElement.id == 'surrender'){ // se for surrender dá uma msg e espera ate a msg desaparecer para fechar o jogo
       if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'easy') nrVictoryEasy ++;
       if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'medium') nrVictoryMedium ++;
@@ -131,23 +131,24 @@ function showOrHideModal(evt){
         game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
       }, 2500);
     }
-    
-    if(currentButtonElement.id == 'quitGame'){
-      if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'easy') nrVictoryEasy ++;
-      if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'medium') nrVictoryMedium ++;
-      if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'hard')  nrVictoryHard ++;
+    else{
+      if(currentButtonElement.id == 'quitGame'){
+        if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'easy') nrVictoryEasy ++;
+        if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'medium') nrVictoryMedium ++;
+        if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'hard')  nrVictoryHard ++;
+      }
+  
+      if(currentButtonElement.id == 'classificações'){
+        document.querySelector('.classificações').remove();
+        document.querySelector('.classificações').remove();
+      }
+      const parentModal = currentButtonElement.parentElement; // get the parent modal element
+      parentModal.classList.add('modal-hidden'); // add the CSS class used to hide it
+  
+      if(game.tabuleiro.jogada.gameOver == true) document.querySelector('.textOnBoard').remove(); // remove a frase do fecho do jogo
+      game.tabuleiro.clean_board();  
+      game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
     }
-
-    if(currentButtonElement.id == 'classificações'){
-      document.querySelector('.classificações').remove();
-      document.querySelector('.classificações').remove();
-    }
-    const parentModal = currentButtonElement.parentElement; // get the parent modal element
-    parentModal.classList.add('modal-hidden'); // add the CSS class used to hide it
-
-    if(game.tabuleiro.jogada.gameOver == true) document.querySelector('.textOnBoard').remove(); // remove a frase do fecho do jogo
-    game.tabuleiro.clean_board();  
-    game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
   } 
 }
 

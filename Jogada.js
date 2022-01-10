@@ -18,6 +18,7 @@ class Jogada{
 
     checkIfClicked(){ // vê se cada cavidade foi clickada  
         this.counter();
+
         if(this.mode == 'computer'){ // modo vs computer
             let max_Seeds = 0;
             let cav_aux;
@@ -28,7 +29,7 @@ class Jogada{
 
                     // Escolhe a cavidade com mais sementes mais à direita
                     this.cavidades.cavTop.forEach(cav =>{
-                        if(cav.nSeeds >= max_Seeds) {
+                        if(cav.nSeeds > max_Seeds) {
                             max_Seeds = cav.nSeeds;
                             cav_aux = cav;
                         }
@@ -58,7 +59,7 @@ class Jogada{
                     if(found == false){
                         // Escolhe a cavidade com mais sementes mais à direita
                         this.cavidades.cavTop.forEach(cav =>{
-                            if(cav.nSeeds >= max_Seeds) {
+                            if(cav.nSeeds > max_Seeds) {
                                 max_Seeds = cav.nSeeds;
                                 cav_aux = cav;
                             }
@@ -67,51 +68,80 @@ class Jogada{
                     
                     this.jogada(cav_aux, cav_aux.id, this.players.p1, this.players.p2);
                 }
+                if(this.changeTurn == 'p2' && this.lastTurn == ''){ // this.lastTurn == '' , pois só queremos acrescentar o event na primeira vez
+                    this.cavidades.cavBot.forEach(cav =>{
+                        cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p2, this.players.p1));
+                    })
+                } 
+            }
+            else if(this.difficulty == 'hard'){ // Dificuldade medium
+                if(this.changeTurn == 'p1'){
+                    let found = false;
 
-                else if(this.difficulty == 'hard'){ // Dificuldade medium
-                    if(this.changeTurn == 'p1'){
-                        
-                        //codig do medio
-                        let found = false;
-    
-                        for(let i = this.players.p1.length-3; i >=0; i--){
-                            if(this.players.p1.at(i).nSeeds == (this.players.p1.length-2 - i) ){
+                    for(let i = this.players.p1.length-3; i >=0; i--){
+                        if(this.players.p1.at(i).nSeeds == (this.players.p1.length-2 - i) ){
+                            cav_aux = this.players.p1.at(i);
+                            found = true;
+                            break;
+                        }
+                    }
+
+
+                    if(found == false){
+                        let found2 = false;
+                        let cav_aux2;
+
+                        //codigo do hard
+                        for(let i = 0; i <= this.players.p1.length-3; i++){
+                            let nrSeeds = this.players.p1.at(i).nSeeds;
+
+                            if(nrSeeds == 0 || this.players.p1.at(i+nrSeeds) == undefined || this.players.p1.at(i+nrSeeds) == 'p1') {
+                                continue;
+                            }
+                            else if(this.players.p1.at(i+nrSeeds).nSeeds == 0 && this.players.p2.at(this.players.p2.length - (i + nrSeeds + 3)).nSeeds != 0){
                                 cav_aux = this.players.p1.at(i);
-                                found = true;
+                                found2 = true;
                                 break;
                             }
                         }
-    
-                        if(found == false){
+
+                        // vê se o outro player consegue roubar sementes
+                        for(let i = 0; i <= this.players.p2.length-3; i++){
+                            let nrSeeds = this.players.p2.at(i).nSeeds;
+
+                            console.log(this.players.p2.at(i), this.players.p1.at(this.players.p2.length - (i + nrSeeds + 3)));
+                            if(nrSeeds == 0 || this.players.p2.at(i+nrSeeds) == undefined || this.players.p2.at(i+nrSeeds) == 'p2') {
+                                continue;
+                            }
+                            else if(this.players.p2.at(i+nrSeeds).nSeeds == 0 && this.players.p1.at(this.players.p2.length - (i + nrSeeds + 3)).nSeeds != 0){
+                                cav_aux = this.players.p1.at(this.players.p2.length - (i + nrSeeds + 3));
+                                console.log(cav_aux2);
+                                found2 = true;
+                                break;
+                            }
+                        }
+
+
+                        if(found2 == false){
+                            console.log("hey");
                             // Escolhe a cavidade com mais sementes mais à direita
                             this.cavidades.cavTop.forEach(cav =>{
-                                if(cav.nSeeds >= max_Seeds) {
+                                if(cav.nSeeds > max_Seeds) {
                                     max_Seeds = cav.nSeeds;
                                     cav_aux = cav;
                                 }
                             })
                         }
-
-                        //codigo hard
-
-
-                        // codigo easy
-                        // Escolhe a cavidade com mais sementes mais à direita
-                        this.cavidades.cavTop.forEach(cav =>{
-                        if(cav.nSeeds >= max_Seeds) {
-                            max_Seeds = cav.nSeeds;
-                            cav_aux = cav;
-                            }
-                        })
-
-                        this.jogada(cav_aux, cav_aux.id, this.players.p1, this.players.p2);
                     }
-                
+
+                    console.log(cav_aux);
+                    this.jogada(cav_aux, cav_aux.id, this.players.p1, this.players.p2);
+                }
                 if(this.changeTurn == 'p2' && this.lastTurn == ''){ // this.lastTurn == '' , pois só queremos acrescentar o event na primeira vez
                     this.cavidades.cavBot.forEach(cav =>{
                         cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p2, this.players.p1));
                     })
-                }  
+                } 
             }
         }
         else{ // modo online
