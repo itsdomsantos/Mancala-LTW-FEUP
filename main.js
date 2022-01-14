@@ -77,17 +77,19 @@ function showDificulty(evt) {
 // função on change, atualiza as cavidades para as cavidades do slider
 slider_cav.onchange = function() {
   output_cav.innerHTML = this.value;
-  
+  size = slider_cav.value;
+
   game.tabuleiro.clean_board();  
-  game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
+  if(currentMode.id != 'online') game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
 }
 
 // função on change, atualiza as sementes para as sementes do slider
 slider_seed.onchange = function() {
   output_seed.innerHTML = this.value;
+  initial = slider_seed.value;
   
-  game.tabuleiro.clean_board();  
-  game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
+  game.tabuleiro.clean_board();
+  if(currentMode.id != 'online') game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
 }
 
 
@@ -110,11 +112,15 @@ function showOrHideModal(evt){
     if(currentButtonElement.dataset.modalId == 'new-game-modal' && currentDificulty.id == 'hard') nrJogosHard ++;
 
     if(currentButtonElement.dataset.modalId == 'classifications-modal') displayClassifications();
-          
-    targetModalElement.classList.remove('modal-hidden'); // remove the CSS class used to hide it
-  } else { // the button is a 'close' button
 
-    if(currentButtonElement.id == 'surrender'){ // se for surrender dá uma msg e espera ate a msg desaparecer para fechar o jogo
+    if(currentButtonElement.dataset.modalId == 'new-game-modal' && currentMode.id == 'online' && nick == null) console.log("log in first");
+    else if(currentButtonElement.dataset.modalId == 'new-game-modal' && currentMode.id == 'online' && nick != null) {
+      targetModalElement.classList.remove('modal-hidden')
+      joinGame();
+    }
+    else targetModalElement.classList.remove('modal-hidden'); // remove the CSS class used to hide it
+  } else { // the button is a 'close' button
+    if(currentButtonElement.id == 'surrender' && currentMode != 'online'){ // se for surrender dá uma msg e espera ate a msg desaparecer para fechar o jogo
       if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'easy') nrVictoryEasy ++;
       if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'medium') nrVictoryMedium ++;
       if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'hard')  nrVictoryHard ++;
@@ -147,7 +153,7 @@ function showOrHideModal(evt){
   
       if(game.tabuleiro.jogada.gameOver == true) document.querySelector('.textOnBoard').remove(); // remove a frase do fecho do jogo
       game.tabuleiro.clean_board();  
-      game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
+      if(currentMode.id != 'online') game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
     }
   } 
 }
@@ -169,4 +175,83 @@ function displayClassifications(){
   document.getElementById('classifications-modal').append(msg);
   document.getElementById('classifications-modal').append(msg1);
   document.getElementById('classifications-modal').append(msg2);
+}
+
+
+
+// PARTE DO SERVIDOR
+const URL = 'http://twserver.alunos.dcc.fc.up.pt:8008/'; // URL do servidor
+
+const group = 97; 
+
+let nick     = null; // Nick do jogador
+let password = null; // Pass do jogador
+let size     = slider_cav.value; // Número de cavidades (sem armazéns)
+let initial  = slider_seed.value; // Número de sementes por cavidade
+let gameId   = null; // Id do jogo
+let sse = null;
+
+const nickInput = document.getElementById('nickname');
+console.log(nickInput);
+nickInput.addEventListener('change', (evt) => nick = evt.target.value);
+
+const passwordInput = document.getElementById('pass');
+passwordInput.addEventListener('change', (evt) => password = evt.target.value);
+
+const loginButton = document.getElementById('login');
+loginButton.addEventListener('click', login);
+
+function login() {
+  console.log(nick, password);
+  const credentials = {nick, password};
+  fetch(URL + 'register', {
+    'method': 'POST',
+		'body': JSON.stringify(credentials)
+  })
+  .then(response => response.json())
+  .then(jsonData => {
+    if('error' in jsonData){
+      console.log("error");
+    }
+    else {
+      gameId = jsonData.game;
+      console.log("Login Successful!");
+    }
+  })
+  .catch(error => console.log(error));
+}
+
+function joinGame() {
+  console.log("ola1");
+  const config = {group, nick, password, size, initial};
+  fetch(URL + 'join', {
+    'method': 'POST',
+		'body': JSON.stringify(config)
+  })
+  .then(response => response.json())
+  .then(jsonData => {
+    if('error' in jsonData) {
+
+    } else {
+      gameId = jsonData.game;
+      console.log('New Game created. ID: ', gameId);
+      startOnlineGame();
+    }
+  })
+  .catch(error => console.log(error));
+}
+
+function startOnlineGame() {
+  if(sse != null && sse.readyState != 2) sse.close();
+
+  sse = new EventSource(URL + 'update?nick=' + nick + '&game=' + gameId);
+  sse.onmessage = receivedUpdate;
+  console.log("waiting for other player");
+}
+
+function receivedUpdate(msg) {
+  const message = JSON.parse(msg.data);
+  console.log(message);
+  game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
+  console.log(game);
 }

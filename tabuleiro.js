@@ -65,6 +65,8 @@ class Tabuleiro{// class do tabuleiro
         this.players = {};
         this.cavidades.cavTop.ele.innerHTML = '';
         this.cavidades.cavBot.ele.innerHTML = '';
+
+        console.log("ola2");
     }
 }
 

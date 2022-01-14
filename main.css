@@ -27,7 +27,7 @@ body {
 }
 
 /* Log In */
-.header form {
+.header-left{
   padding: 0.7em 10px;
   border-radius: 5px;
   background-color: rgb(193, 117, 81);
