@@ -344,7 +344,7 @@ h1 {
 }
 
 /* Texto dos jogadores */
-.computer, .player {
+.message {
   width: fit-content;
   padding: 15px;
   background-color: #47331fc1;
@@ -353,22 +353,13 @@ h1 {
   border: 1.5px solid #ebb386;
   border-radius: 10px;
   text-align: center;
-}
-
-/* vez do computador */ 
-.computer {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -100%);
-}
-
-/* vez do jogador */
-.player { 
   position: absolute;
   left: 50%;
   bottom: 0%;
   transform: translate(-50%, 50%);
 }
+
+
 
 /* counter das sementes dos armazens de ambos os lados */
 .counter {

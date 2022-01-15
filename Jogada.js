@@ -12,7 +12,7 @@ class Jogada{
         this.changeTurn = 'p2'; // muda para a vez do outro jogador
         this.lastTurn = '';
 
-        this.showWhoIsPlaying(this.changeTurn);
+        if(this.mode == 'computer') this.showMessage("Your turn");
         this.checkIfClicked();
     }
 
@@ -140,13 +140,13 @@ class Jogada{
             }
         }
         else{ // modo online
-            this.cavidades.cavBot.forEach(cav =>{        
+           /* this.cavidades.cavBot.forEach(cav =>{        
                 cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p2, this.players.p1));
             })
 
             this.cavidades.cavTop.forEach(cav =>{        
                 cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p1, this.players.p2));
-            })
+            })*/
         }  
     }
 
@@ -193,17 +193,16 @@ class Jogada{
             return; // quando a ultima seed cai no armazem joga de novo
         }
 
-        if(this.changeTurn == 'p1') this.remove_Text_On_Board('.computer', 0);
-        else this.remove_Text_On_Board('.player', 0);
+        this.remove_Text_On_Board('.message');
 
         this.changeTurn = outro_Player.at(outro_Player.length - 1); // muda para a vez do outro jogador
         this.counter();
 
         if(this.mode == 'computer' && this.changeTurn == 'p1') { // se estiver no modo vs computador e for a vez do computador, chama a função novamente para o computador jogar
-            this.showWhoIsPlaying(this.changeTurn);
+            this.showMessage("Computer's turn");
             setTimeout(() => {this.checkIfClicked()}, 2000); // 3 segundos para o computador jogar
         }
-        else this.showWhoIsPlaying(this.changeTurn);
+        else this.showMessage("Your turn");
     }
 
     transferSeeds(player, seedsToTransfer, id, outro_Player){ // faz a transferência das Seeds recursivamente, caso chegue ao aramazem ainda com Seeds para distribuir
@@ -211,7 +210,8 @@ class Jogada{
         for(let i = id + 1; i < player.length - 1; i++){
             if(seedsToTransfer == 0) break;
 
-            if(player.at(i).nSeeds == 0 && seedsToTransfer == 1 && player.at(length - 1) == this.changeTurn && i != player.length - 2){
+
+            if(player.at(i).nSeeds == 0 && seedsToTransfer == 1 && player.at(length - 1) == this.changeTurn && i != player.length - 2 && outro_Player.at(outro_Player.length - (i + 3)).nSeeds != 0) {
                 this.steal_Seeds(i, player, outro_Player);
                 player.at(i).nSeeds --;
                 player.at(i).setNewNumberSeeds();
@@ -276,16 +276,10 @@ class Jogada{
         }
     }
 
-    showWhoIsPlaying(player){
+    showMessage(message){
         const msg = document.createElement('span');
-        if(player == 'p1'){
-            msg.innerText = "Computer's turn!";
-            msg.classList.add('computer');
-        }
-        else{
-            msg.innerText = 'Your turn!';
-            msg.classList.add('player');
-        }
+        msg.innerText = message;
+        msg.classList.add('message');
         this.tabuleiro.append(msg);
     }
 
@@ -298,7 +292,7 @@ class Jogada{
     }
 
     remove_Text_On_Board(msgToRemove, time){ // remove a msg que está no tabuleiro
-        setTimeout(() => {document.querySelector(msgToRemove).remove()}, time); // Ao fim de 1000 ms a função remove o alerta de "Jogada Impossível";
+        setTimeout(() => {document.querySelector(msgToRemove).remove()}, time); // Ao fim de x ms a função remove o alerta de "Jogada Impossível";
     }
 
     counter(){ // contador das sementes nos armazens
@@ -319,8 +313,7 @@ class Jogada{
         if(this.surrender == true){
             this.gameOver = true;
 
-            if(this.changeTurn == 'p1') this.remove_Text_On_Board('.computer', 0);
-            else this.remove_Text_On_Board('.player', 0);
+            this.remove_Text_On_Board('.message');
 
             this.changeTurn = '';
             return;
@@ -329,8 +322,7 @@ class Jogada{
         document.getElementById('surrender').style.visibility = 'hidden';
         document.getElementById('quitGame').style.visibility = 'visible';
         
-        if(this.changeTurn == 'p1') this.remove_Text_On_Board('.computer', 0);
-        else this.remove_Text_On_Board('.player', 0);
+        this.remove_Text_On_Board('.message');
         const gameOver = document.createElement('span');
         if(this.players.p1.at(this.players.p1.length-2).nSeeds > this.players.p2.at(this.players.p2.length-2).nSeeds){
             gameOver.innerText = 'Computer Won! You Lost :(\n Computer: ' + this.players.p1.at(this.players.p1.length-2).nSeeds + '\n You: ' + this.players.p2.at(this.players.p2.length-2).nSeeds;
