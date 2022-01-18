@@ -2,8 +2,8 @@ import Tabuleiro from "./tabuleiro.js";
 
 // Game
 class Game{
-  constructor(nSeeds, nCavs, mode, difficulty){
-    this.tabuleiro = new Tabuleiro(nSeeds, nCavs, mode, difficulty);
+  constructor(nSeeds, nCavs, mode, difficulty, pl1, pl2){
+    this.tabuleiro = new Tabuleiro(nSeeds, nCavs, mode, difficulty, pl1, pl2);
     this.state = 'opened';
   }
 
@@ -12,12 +12,14 @@ class Game{
   }
 }
 
+let game;
 let nrJogosEasy = 0;
 let nrJogosMedium = 0;
 let nrJogosHard = 0;
 let nrVictoryEasy = 0;
 let nrVictoryMedium = 0;
 let nrVictoryHard = 0;
+
 
 
 /* Gera as cavidades */
@@ -43,8 +45,6 @@ if(document.getElementById("computer").checked){
 let currentDificulty = document.querySelectorAll('.dificuldade')[0];
 
 
-
-let game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id); // INÍCIO DO JOGO
 
 
 // modo do jogo
@@ -84,8 +84,8 @@ slider_cav.onchange = function() {
   output_cav.innerHTML = this.value;
   size = slider_cav.value;
 
-  if(currentMode.id == 'computer') game.tabuleiro.clean_board();  
-  if(currentMode.id != 'online') game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
+  if(currentMode.id == 'computer' && game != undefined) game.tabuleiro.clean_board();  
+  if(currentMode.id != 'online') game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id, 'computer', 'p2');
 }
 
 // função on change, atualiza as sementes para as sementes do slider
@@ -93,8 +93,8 @@ slider_seed.onchange = function() {
   output_seed.innerHTML = this.value;
   initial = slider_seed.value;
   
-  if(currentMode.id == 'computer') game.tabuleiro.clean_board();
-  if(currentMode.id != 'online') game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
+  if(currentMode.id == 'computer' && game != undefined) game.tabuleiro.clean_board();
+  if(currentMode.id != 'online') game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id, 'computer', 'p2');
 }
 
 
@@ -116,17 +116,26 @@ function showOrHideModal(evt){
     if(currentButtonElement.dataset.modalId == 'new-game-modal' && currentDificulty.id == 'medium') nrJogosMedium ++;
     if(currentButtonElement.dataset.modalId == 'new-game-modal' && currentDificulty.id == 'hard') nrJogosHard ++;
 
-    if(currentButtonElement.dataset.modalId == 'classifications-modal') displayClassifications();
+    if(currentButtonElement.dataset.modalId == 'new-game-modal' && currentMode.id == 'computer') 
+      game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id, 'computer', 'p2'); // INÍCIO DO JOGO
+
+    if(currentButtonElement.dataset.modalId == 'classifications-modal' && currentMode.id == 'computer') displayClassifications();
+    if(currentButtonElement.dataset.modalId == 'classifications-modal' && currentMode.id == 'online') {
+      document.querySelector('.classificações').remove();
+      showRanking();
+    }
 
     if(currentButtonElement.dataset.modalId == 'new-game-modal' && currentMode.id == 'online' && nick == null) showMessage('Login first!', 1000);
     else if(currentButtonElement.dataset.modalId == 'new-game-modal' && currentMode.id == 'online' && nick != null) {
       targetModalElement.classList.remove('modal-hidden')
+      document.getElementById('new-game-modal').style.visibility = 'visible';
       joinGame();
     }
     else targetModalElement.classList.remove('modal-hidden'); // remove the CSS class used to hide it
   } 
   else { // the button is a 'close' button
     const parentModal = currentButtonElement.parentElement; // get the parent modal element
+    console.log(parentModal);
     if(currentButtonElement.id == 'surrender' && currentMode.id != 'online'){ // se for surrender dá uma msg e espera ate a msg desaparecer para fechar o jogo
       if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'easy') nrVictoryEasy ++;
       if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'medium') nrVictoryMedium ++;
@@ -141,10 +150,11 @@ function showOrHideModal(evt){
 
         game.tabuleiro.clean_board();  
         game.setState();
-        game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
+        game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id, 'computer', 'p2');
       }, 2500);
     }
     else if(currentButtonElement.id == 'surrender' && currentMode.id == 'online'){
+      game.tabuleiro.jogada.setSurrender();
       leaveGame();
       setTimeout(() =>{
         parentModal.classList.add('modal-hidden');
@@ -163,10 +173,11 @@ function showOrHideModal(evt){
       }
       parentModal.classList.add('modal-hidden'); // add the CSS class used to hide it
   
-      if(game.tabuleiro.jogada.gameOver == true && currentMode.id == 'computer') document.querySelector('.textOnBoard').remove(); // remove a frase do fecho do jogo
-      if(game.state != 'closed') game.tabuleiro.clean_board();  
-      game.setState();
-      if(currentMode.id != 'online') game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
+      if(game != undefined && game.tabuleiro.jogada.gameOver == true && currentMode.id == 'computer') document.querySelector('.textOnBoard').remove(); // remove a frase do fecho do jogo
+      if(game != undefined && game.state != 'closed') {
+        game.tabuleiro.clean_board();  
+        game.setState();
+      }
     }
   } 
 }
@@ -221,12 +232,12 @@ function login() {
 		'body': JSON.stringify(credentials)
   })
   .then(response => response.json())
-  .then(jsonData => {
-    if('error' in jsonData){
+  .then(json => {
+    if('error' in json){
       showMessage('error on register', 1000);
     }
     else {
-      gameId = jsonData.game;
+      gameId = json.game;
       showMessage('Login Successful!', 1000)
     }
   })
@@ -241,14 +252,15 @@ function joinGame() {
 		'body': JSON.stringify(config)
   })
   .then(response => response.json())
-  .then(jsonData => {
-    if('error' in jsonData) {
+  .then(json => {
+    if('error' in json) {
       showMessage('error on join', 1000);
     } else {
-      gameId = jsonData.game;
+      gameId = json.game;
       console.log('New Game created. Game Id: ', gameId);
-      game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id);
+      game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id, 'adversário', nick);
       startOnlineGame();
+
     }
   })
   .catch(error => console.log(error));
@@ -263,18 +275,69 @@ function startOnlineGame() {
   game.tabuleiro.jogada.showMessage('Waiting for other player to play');
 }
 
-// 
+// update board
 function receivedUpdate(msg) {
   const message = JSON.parse(msg.data);
-  console.log(message);
-  if('board' in message) game.tabuleiro.jogada.remove_Text_On_Board('.message', 0);
 
-  if('winner' in message && message.winner == nick) {
-    showMessage('Other Player Surrender! You Won the Game!', 2500);
-    leaveGame();
+  console.log(message);
+  if(game.tabuleiro.jogada.gameStarted == null){
+    game.tabuleiro.jogada.setGameStarted();
+
+    game.tabuleiro.jogada.cavidades.cavBot.forEach(cav => {
+      cav.ele.addEventListener('click', jogadaNotify.bind(this, cav))
+    })
   }
-  else if('winner' in message && message.winner == null) showMessage('Desistiu da espera. Nenhum vencedor!', 2500);
-  else if('winner' in message && message.winner != nick) showMessage('You Surrender! You Lost!', 2500);
+
+  if('board' in message) {
+    game.tabuleiro.jogada.remove_Text_On_Board('.message', 0);
+    if('turn' in message.board){
+      game.tabuleiro.jogada.showMessage( message.board.turn + ' turn to play');
+    }
+    
+    // atualiza a board
+    if('pit' in message){
+      const players = Object.keys(message.board.sides);
+      let other_player = '';
+      
+      for(let i = 0; i < players.length; i++){
+        if(nick != players.at(i)) other_player = players.at(i);
+      }
+      
+      let i = 0;
+      game.tabuleiro.jogada.cavidades.cavBot.forEach(cav => {
+        cav.nSeeds = message.board.sides[nick].pits[i];
+        cav.setNewNumberSeeds();
+        i++;
+      })
+      game.tabuleiro.armazemRight.nSeeds = message.stores[nick];
+      game.tabuleiro.armazemRight.setNewNumberSeeds();
+
+      i = size - 1;
+      game.tabuleiro.jogada.cavidades.cavTop.forEach(cav => {
+        cav.nSeeds = message.board.sides[other_player].pits[i];
+        cav.setNewNumberSeeds();
+        i--;
+      })
+      game.tabuleiro.armazemLeft.nSeeds = message.stores[other_player];
+      game.tabuleiro.armazemLeft.setNewNumberSeeds();
+    }
+  }
+
+  if('winner' in message){
+    document.querySelector('.message').remove();
+    
+    showMessage(message.winner + ' won the game', 2500);
+    if(message.winner == nick && game.tabuleiro.jogada.surrender){
+      leaveGame();
+    }
+    else if(!game.tabuleiro.jogada.surrender){
+      setTimeout(() =>{
+        game.tabuleiro.clean_board(); 
+        game.setState(); 
+        document.getElementById('new-game-modal').style.visibility = 'hidden';
+      }, 2500);
+    }
+  }
 }
 
 // leave
@@ -285,18 +348,47 @@ function leaveGame() {
 		'body': JSON.stringify(config)
   })
   .then(response => response.json())
-  .then(jsonData => {
-    if('error' in jsonData) {
+  .then(json => {
+    if('error' in json) {
       showMessage('error on leave', 1000);
     } else {
       document.getElementById('surrender').style.visibility = 'hidden';
       setTimeout(() =>{
         game.tabuleiro.clean_board(); 
         game.setState(); 
+        document.getElementById('new-game-modal').style.visibility = 'hidden';
       }, 2500);
     }
   })
   .catch(error => console.log(error));
+}
+
+// notify
+function jogadaNotify(cav){
+  const config = {nick, password, game: gameId, move: cav.id};
+
+  fetch(URL + 'notify', {
+      'method': 'POST',
+      'body': JSON.stringify(config)
+    })
+    .then(response => response.json())
+    .catch(error => console.log(error));
+}
+
+// ranking
+function showRanking() {
+  fetch(URL + 'ranking', {
+      'method': 'POST',
+      'body': JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(json => {
+      console.log(json.ranking);
+      for(let i = 0; i < json.ranking.length; i++){
+        document.write(json.ranking.at(i).nick + ' Victories: ' + json.ranking.at(i).victories + ' Games: ' + json.ranking.at(i).games + "<br><br>")
+      }
+    })
+    .catch(error => console.log(error));
 }
 
 // msg nos metodos fetch

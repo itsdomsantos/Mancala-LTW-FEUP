@@ -389,4 +389,5 @@ h1 {
   font-weight: bold;
   border: 1.5px solid #ebb386;
   border-radius: 10px;
+  flex-direction:  column;
 }

@@ -25,7 +25,7 @@ class Jogada{
 
             if(this.difficulty == 'easy'){ // Dificuldade easy
 
-                if(this.changeTurn == 'p1'){
+                if(this.changeTurn == 'computer'){
 
                     // Escolhe a cavidade com mais sementes mais à direita
                     this.cavidades.cavTop.forEach(cav =>{
@@ -45,7 +45,7 @@ class Jogada{
                 }
             }
             else if(this.difficulty == 'medium'){ // Dificuldade medium
-                if(this.changeTurn == 'p1'){
+                if(this.changeTurn == 'computer'){
                     let found = false;
 
                     for(let i = this.players.p1.length-3; i >=0; i--){
@@ -75,7 +75,7 @@ class Jogada{
                 } 
             }
             else if(this.difficulty == 'hard'){ // Dificuldade medium
-                if(this.changeTurn == 'p1'){
+                if(this.changeTurn == 'computer'){
                     let found = false;
 
                     for(let i = this.players.p1.length-3; i >=0; i--){
@@ -94,7 +94,7 @@ class Jogada{
                         for(let i = 0; i <= this.players.p1.length-3; i++){
                             let nrSeeds = this.players.p1.at(i).nSeeds;
 
-                            if(nrSeeds == 0 || this.players.p1.at(i+nrSeeds) == undefined || this.players.p1.at(i+nrSeeds) == 'p1') {
+                            if(nrSeeds == 0 || this.players.p1.at(i+nrSeeds) == undefined || this.players.p1.at(i+nrSeeds) == 'computer') {
                                 continue;
                             }
                             else if(this.players.p1.at(i+nrSeeds).nSeeds == 0 && this.players.p2.at(this.players.p2.length - (i + nrSeeds + 3)).nSeeds != 0){
@@ -139,19 +139,11 @@ class Jogada{
                 } 
             }
         }
-        else{ // modo online
-           /* this.cavidades.cavBot.forEach(cav =>{        
-                cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p2, this.players.p1));
-            })
-
-            this.cavidades.cavTop.forEach(cav =>{        
-                cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p1, this.players.p2));
-            })*/
-        }  
     }
 
     jogada(cav, id, player, outro_Player){ // trata de cada jogada
         let seedsToTransfer = 0;
+        console.log(player, player[player.length - 1]);
         
         if(this.gameOver == true) return; // game over
 
@@ -187,7 +179,7 @@ class Jogada{
 
         if(result == -1) {
             this.counter();
-            if(this.mode == 'computer' && this.changeTurn == 'p1') {
+            if(this.mode == 'computer' && this.changeTurn == 'computer') {
                 setTimeout(() => {this.checkIfClicked()}, 3000);
             }
             return; // quando a ultima seed cai no armazem joga de novo
@@ -198,7 +190,7 @@ class Jogada{
         this.changeTurn = outro_Player.at(outro_Player.length - 1); // muda para a vez do outro jogador
         this.counter();
 
-        if(this.mode == 'computer' && this.changeTurn == 'p1') { // se estiver no modo vs computador e for a vez do computador, chama a função novamente para o computador jogar
+        if(this.mode == 'computer' && this.changeTurn == 'computer') { // se estiver no modo vs computador e for a vez do computador, chama a função novamente para o computador jogar
             this.showMessage("Computer's turn");
             setTimeout(() => {this.checkIfClicked()}, 2000); // 3 segundos para o computador jogar
         }
@@ -305,7 +297,7 @@ class Jogada{
 
     setSurrender(){ // surrender foi carregado
         this.surrender = true;
-        this.GameOver();
+        if(this.mode == 'computer') this.GameOver();
     }
 
     GameOver(){ // termina o jogo
@@ -338,6 +330,10 @@ class Jogada{
         this.tabuleiro.append(gameOver);
         this.gameOver = true;
         this.changeTurn = '';
+    }
+
+    setGameStarted(){
+        this.gameStarted = 'started';
     }
 }
 

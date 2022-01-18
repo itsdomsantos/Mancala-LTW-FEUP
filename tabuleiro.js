@@ -4,15 +4,15 @@ import Jogada from "./Jogada.js";
 
 
 class Tabuleiro{// class do tabuleiro
-    constructor(nSeeds, nCavs, mode, difficulty){
+    constructor(nSeeds, nCavs, mode, difficulty, pl1, pl2){
       this.cavidades = new Cavidades(nSeeds, nCavs);
       this.armazemLeft = new Armazem(0);
       this.armazemRight = new Armazem(0);
 
       this.players = {p1:this.create_player(this.armazemLeft, this.cavidades.cavTop, 'p1'), p2: this.create_player(this.armazemRight, this.cavidades.cavBot, 'p2')}
       this.players.p1.reverse(); // inverte os elementos para o player de cima ser tratado da mesma forma que o de baixo
-      this.players.p1.push('p1');
-      this.players.p2.push('p2');
+      this.players.p1.push(pl1);
+      this.players.p2.push(pl2);
 
       this.tabuleiro = document.getElementById('tabuleiro');
 
@@ -54,7 +54,7 @@ class Tabuleiro{// class do tabuleiro
     clean_board(){ // limpa o tabuleiro
         if(this.jogada.changeTurn == 'p2' && this.jogada.lastTurn == '' && this.jogada.mode == 'computer')
             this.jogada.remove_Text_On_Board('.message', 0);
-        if(this.jogada.changeTurn == 'p1' && this.jogada.lastTurn == '' && this.jogada.mode == 'computer')
+        if(this.jogada.changeTurn == 'computer' && this.jogada.lastTurn == '' && this.jogada.mode == 'computer')
             this.jogada.remove_Text_On_Board('.message', 0);
 
         document.querySelector('.counter').remove();
