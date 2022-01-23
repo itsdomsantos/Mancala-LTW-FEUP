@@ -1,6 +1,6 @@
 import Cavidades from "./cavidades.js";
 import Armazem from "./armazem.js";
-import Jogada from "./Jogada.js";
+import Jogada from "./jogada.js";
 
 
 class Tabuleiro{// class do tabuleiro

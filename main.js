@@ -1,4 +1,4 @@
-import Tabuleiro from "./tabuleiro.js";
+import Tabuleiro from "./board/tabuleiro.js";
 
 // Game
 class Game{
@@ -85,7 +85,7 @@ slider_cav.onchange = function() {
   size = slider_cav.value;
 
   if(currentMode.id == 'computer' && game != undefined) game.tabuleiro.clean_board();  
-  if(currentMode.id != 'online') game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id, 'computer', 'p2');
+  if(currentMode.id != 'online') game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id, 'computer', 'You');
 }
 
 // função on change, atualiza as sementes para as sementes do slider
@@ -94,7 +94,7 @@ slider_seed.onchange = function() {
   initial = slider_seed.value;
   
   if(currentMode.id == 'computer' && game != undefined) game.tabuleiro.clean_board();
-  if(currentMode.id != 'online') game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id, 'computer', 'p2');
+  if(currentMode.id != 'online') game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id, 'computer', 'You');
 }
 
 
@@ -117,7 +117,7 @@ function showOrHideModal(evt){
     if(currentButtonElement.dataset.modalId == 'new-game-modal' && currentDificulty.id == 'hard') nrJogosHard ++;
 
     if(currentButtonElement.dataset.modalId == 'new-game-modal' && currentMode.id == 'computer') 
-      game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id, 'computer', 'p2'); // INÍCIO DO JOGO
+      game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id, 'computer', 'You'); // INÍCIO DO JOGO
 
     if(currentButtonElement.dataset.modalId == 'classifications-modal' && currentMode.id == 'computer') displayClassifications();
     if(currentButtonElement.dataset.modalId == 'classifications-modal' && currentMode.id == 'online') {

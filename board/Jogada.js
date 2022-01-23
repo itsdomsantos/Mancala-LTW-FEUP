@@ -9,7 +9,7 @@ class Jogada{
         this.victory = false;
 
         this.gameOver = false; // fica a true quando o jogo acaba (serve para limpar o Game Over do tabuleiro)
-        this.changeTurn = 'p2'; // muda para a vez do outro jogador
+        this.changeTurn = 'You'; // muda para a vez do outro jogador
         this.lastTurn = '';
 
         if(this.mode == 'computer') this.showMessage("Your turn");
@@ -19,6 +19,7 @@ class Jogada{
     checkIfClicked(){ // vê se cada cavidade foi clickada  
         this.counter();
 
+        console.log(this.changeTurn);
         if(this.mode == 'computer'){ // modo vs computer
             let max_Seeds = 0;
             let cav_aux;
@@ -38,7 +39,7 @@ class Jogada{
                     this.jogada(cav_aux, cav_aux.id, this.players.p1, this.players.p2);
                 }
 
-                if(this.changeTurn == 'p2' && this.lastTurn == ''){ // this.lastTurn == '' , pois só queremos acrescentar o event na primeira vez
+                if(this.changeTurn == 'You' && this.lastTurn == ''){ // this.lastTurn == '' , pois só queremos acrescentar o event na primeira vez
                     this.cavidades.cavBot.forEach(cav =>{
                         cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p2, this.players.p1));
                     })
@@ -68,7 +69,7 @@ class Jogada{
                     
                     this.jogada(cav_aux, cav_aux.id, this.players.p1, this.players.p2);
                 }
-                if(this.changeTurn == 'p2' && this.lastTurn == ''){ // this.lastTurn == '' , pois só queremos acrescentar o event na primeira vez
+                if(this.changeTurn == 'You' && this.lastTurn == ''){ // this.lastTurn == '' , pois só queremos acrescentar o event na primeira vez
                     this.cavidades.cavBot.forEach(cav =>{
                         cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p2, this.players.p1));
                     })
@@ -108,7 +109,7 @@ class Jogada{
                         for(let i = 0; i <= this.players.p2.length-3; i++){
                             let nrSeeds = this.players.p2.at(i).nSeeds;
 
-                            if(nrSeeds == 0 || this.players.p2.at(i+nrSeeds) == undefined || this.players.p2.at(i+nrSeeds) == 'p2') {
+                            if(nrSeeds == 0 || this.players.p2.at(i+nrSeeds) == undefined || this.players.p2.at(i+nrSeeds) == 'You') {
                                 continue;
                             }
                             else if(this.players.p2.at(i+nrSeeds).nSeeds == 0 && this.players.p1.at(this.players.p2.length - (i + nrSeeds + 3)).nSeeds != 0){
@@ -132,7 +133,7 @@ class Jogada{
 
                     this.jogada(cav_aux, cav_aux.id, this.players.p1, this.players.p2);
                 }
-                if(this.changeTurn == 'p2' && this.lastTurn == ''){ // this.lastTurn == '' , pois só queremos acrescentar o event na primeira vez
+                if(this.changeTurn == 'You' && this.lastTurn == ''){ // this.lastTurn == '' , pois só queremos acrescentar o event na primeira vez
                     this.cavidades.cavBot.forEach(cav =>{
                         cav.ele.addEventListener('click', this.jogada.bind(this, cav, cav.id, this.players.p2, this.players.p1));
                     })
@@ -143,7 +144,6 @@ class Jogada{
 
     jogada(cav, id, player, outro_Player){ // trata de cada jogada
         let seedsToTransfer = 0;
-        console.log(player, player[player.length - 1]);
         
         if(this.gameOver == true) return; // game over
 
@@ -290,7 +290,7 @@ class Jogada{
     counter(){ // contador das sementes nos armazens
         if(this.lastTurn != '' || this.surrender == true) document.querySelector('.counter').remove();
         const counter = document.createElement('span');
-        counter.innerText = this.mode + ': ' + this.players.p1.at(this.players.p1.length-2).nSeeds + '\n\nYou: ' + this.players.p2.at(this.players.p2.length-2).nSeeds;
+        counter.innerText = this.players.p1.at(this.players.p1.length-1) + ': ' + this.players.p1.at(this.players.p1.length-2).nSeeds + '\n\n' + this.players.p2.at(this.players.p2.length-1) + ': ' + this.players.p2.at(this.players.p2.length-2).nSeeds;
         counter.classList.add('counter');
         this.tabuleiro.append(counter);
     }

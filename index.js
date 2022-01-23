@@ -1,7 +1,5 @@
 const http = require('http');
-const url = require('url');
-const crypto = require('crypto');
-
+const hostname = 'twserver.alunos.dcc.fc.up.pt';
 const port = 9097;
 
 const register = require('./modulos/register.js');

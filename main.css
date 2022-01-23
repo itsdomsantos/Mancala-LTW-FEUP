@@ -5,7 +5,7 @@
 
 /* O Corpo da nossa page*/
 body {
-  background-image: url("/images/wood.jpg");
+  background-image: url("/images/background.jpg");
   font-family: 'Poppins', sans-serif;
   background-repeat: no-repeat;
   background-size: cover;
@@ -142,7 +142,7 @@ h1 {
   width: fit-content;
   padding: 15px 15px;
   border-radius: 15px;
-  background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url("/images/wood2.jpg");
+  background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url("/images/tabuleiro.jpg");
   background-size: cover;
   position: relative;
 }
@@ -208,7 +208,7 @@ h1 {
 
 /* Seed */
 .feijao {
-  background-image: url("/images/feijaop1.png");
+  background-image: url("/images/seed.png");
   background-size: cover;
   width: 15px;
   height: 15px;
