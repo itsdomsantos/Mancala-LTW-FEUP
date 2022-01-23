@@ -121,7 +121,6 @@ function showOrHideModal(evt){
 
     if(currentButtonElement.dataset.modalId == 'classifications-modal' && currentMode.id == 'computer') displayClassifications();
     if(currentButtonElement.dataset.modalId == 'classifications-modal' && currentMode.id == 'online') {
-      document.querySelector('.classificações').remove();
       showRanking();
     }
 
@@ -135,7 +134,6 @@ function showOrHideModal(evt){
   } 
   else { // the button is a 'close' button
     const parentModal = currentButtonElement.parentElement; // get the parent modal element
-    console.log(parentModal);
     if(currentButtonElement.id == 'surrender' && currentMode.id != 'online'){ // se for surrender dá uma msg e espera ate a msg desaparecer para fechar o jogo
       if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'easy') nrVictoryEasy ++;
       if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'medium') nrVictoryMedium ++;
@@ -150,7 +148,6 @@ function showOrHideModal(evt){
 
         game.tabuleiro.clean_board();  
         game.setState();
-        game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id, 'computer', 'p2');
       }, 2500);
     }
     else if(currentButtonElement.id == 'surrender' && currentMode.id == 'online'){
@@ -167,8 +164,12 @@ function showOrHideModal(evt){
         if(game.tabuleiro.jogada.victory == true && currentDificulty.id == 'hard')  nrVictoryHard ++;
       }
   
-      if(currentButtonElement.id == 'classificações'){
+      if(currentButtonElement.id == 'classificações' && currentMode.id == 'computer'){
         document.querySelector('.classificações').remove();
+        document.querySelector('.classificações').remove();
+        document.querySelector('.classificações').remove();
+      }
+      if(currentButtonElement.id == 'classificações' && currentMode.id == 'online'){
         document.querySelector('.classificações').remove();
       }
       parentModal.classList.add('modal-hidden'); // add the CSS class used to hide it
@@ -186,7 +187,6 @@ function showOrHideModal(evt){
 
 /////* Classificações */////
 function displayClassifications(){
-  document.querySelector('.classificações').remove();
   const msg = document.createElement('div');
   const msg1 = document.createElement('div');
   const msg2 = document.createElement('div');
@@ -204,7 +204,8 @@ function displayClassifications(){
 
 
 // PARTE DO SERVIDOR
-const URL = 'http://twserver.alunos.dcc.fc.up.pt:8008/'; // URL do servidor
+const URL = 'http://localhost:9097/'; // URL do servidor
+const URL2 = 'http://twserver.alunos.dcc.fc.up.pt:8008/'; // URL do servidor do professor
 
 const group = 97; 
 
@@ -233,6 +234,7 @@ function login() {
   })
   .then(response => response.json())
   .then(json => {
+    console.log(json);
     if('error' in json){
       showMessage('error on register', 1000);
     }
@@ -253,15 +255,14 @@ function joinGame() {
   })
   .then(response => response.json())
   .then(json => {
-    if('error' in json) {
-      showMessage('error on join', 1000);
-    } else {
+    if('game' in json){
+      console.log(json);
       gameId = json.game;
       console.log('New Game created. Game Id: ', gameId);
       game = new Game(slider_seed.value, slider_cav.value, currentMode.id, currentDificulty.id, 'adversário', nick);
       startOnlineGame();
-
     }
+    else showMessage('error on join', 1000);
   })
   .catch(error => console.log(error));
 }
@@ -270,7 +271,7 @@ function joinGame() {
 function startOnlineGame() {
   if(sse != null) sse.close();
 
-  sse = new EventSource(URL + 'update?nick=' + nick + '&game=' + gameId);
+  sse = new EventSource(URL2 + 'update?nick=' + nick + '&game=' + gameId);
   sse.onmessage = receivedUpdate;
   game.tabuleiro.jogada.showMessage('Waiting for other player to play');
 }
@@ -331,11 +332,7 @@ function receivedUpdate(msg) {
       leaveGame();
     }
     else if(!game.tabuleiro.jogada.surrender){
-      setTimeout(() =>{
-        game.tabuleiro.clean_board(); 
-        game.setState(); 
-        document.getElementById('new-game-modal').style.visibility = 'hidden';
-      }, 2500);
+      
     }
   }
 }
@@ -343,7 +340,7 @@ function receivedUpdate(msg) {
 // leave
 function leaveGame() {
   const config = {nick, password, game: gameId};
-  fetch(URL + 'leave', {
+  fetch(URL2 + 'leave', {
     'method': 'POST',
 		'body': JSON.stringify(config)
   })
@@ -367,7 +364,7 @@ function leaveGame() {
 function jogadaNotify(cav){
   const config = {nick, password, game: gameId, move: cav.id};
 
-  fetch(URL + 'notify', {
+  fetch(URL2 + 'notify', {
       'method': 'POST',
       'body': JSON.stringify(config)
     })
@@ -383,9 +380,16 @@ function showRanking() {
     })
     .then(response => response.json())
     .then(json => {
-      console.log(json.ranking);
+      console.log(json);
+      const classif = document.createElement('div');
+      classif.classList.add('classificações');
+      document.getElementById('classifications-modal').append(classif);
+
+      const msg = document.createElement('div');
+      const helper = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
       for(let i = 0; i < json.ranking.length; i++){
-        document.write(json.ranking.at(i).nick + ' Victories: ' + json.ranking.at(i).victories + ' Games: ' + json.ranking.at(i).games + "<br><br>")
+        msg.innerHTML += json.ranking[i].nick + helper +  'Victories: ' + json.ranking[i].victories + helper + 'Games: ' + json.ranking[i].games + '<br><br>';
+        document.querySelector('.classificações').append(msg);
       }
     })
     .catch(error => console.log(error));

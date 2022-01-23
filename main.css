@@ -5,7 +5,7 @@
 
 /* O Corpo da nossa page*/
 body {
-  background-image: url("images/wood.jpg");
+  background-image: url("/images/wood.jpg");
   font-family: 'Poppins', sans-serif;
   background-repeat: no-repeat;
   background-size: cover;
@@ -27,7 +27,7 @@ body {
 }
 
 /* Log In */
-.header-left{
+.header-right{
   padding: 0.7em 10px;
   border-radius: 5px;
   background-color: rgb(193, 117, 81);
@@ -83,7 +83,7 @@ button:hover {
   inset: 0; /* this is equal to 'top: 0; right: 0; bottom: 0; left: 0; */
   height: 550px;
   margin: 100px 300px 300px;
-  background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url("images/game.jpg");
+  background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url("/images/game.jpg");
   background-size: cover;
   color:white;
 }
@@ -142,7 +142,7 @@ h1 {
   width: fit-content;
   padding: 15px 15px;
   border-radius: 15px;
-  background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url("images/wood2.jpg");
+  background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url("/images/wood2.jpg");
   background-size: cover;
   position: relative;
 }
@@ -208,7 +208,7 @@ h1 {
 
 /* Seed */
 .feijao {
-  background-image: url("images/feijaop1.png");
+  background-image: url("/images/feijaop1.png");
   background-size: cover;
   width: 15px;
   height: 15px;
@@ -382,12 +382,12 @@ h1 {
 /* Classificações */
 .classificações{
   width: 70%;
-  padding: 50px;
+  padding: 25px;
+  margin-top: 25px;
   text-align: center;
   background-color: #47331fc1;
   color: white;
   font-weight: bold;
   border: 1.5px solid #ebb386;
-  border-radius: 10px;
-  flex-direction:  column;
+  border-radius: 50px;
 }
