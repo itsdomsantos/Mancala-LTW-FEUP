@@ -241,9 +241,25 @@ function login() {
     else {
       gameId = json.game;
       showMessage('Login Successful!', 1000)
+      changeHeader();
     }
   })
   .catch(error => console.log(error));
+}
+
+function changeHeader() {
+  document.querySelector('.header-right').innerHTML = "";
+    const msg = document.createElement('p');
+    msg.innerText = "Welcome " + nick + "!";
+    msg.style.color = "white";
+    var button = document.createElement('input');
+    button.type = "submit";
+    button.value = "Logout";
+    button.style.marginLeft = 10 + 'px';
+    button.onclick = function(){window.location.reload();}
+
+    document.querySelector('.header-right').append(msg);
+    document.querySelector('.header-right').append(button);
 }
 
 // join
