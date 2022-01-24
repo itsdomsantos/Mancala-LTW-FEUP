@@ -1,4 +1,5 @@
 const http = require('http');
+const fs = require('fs');
 const hostname = 'twserver.alunos.dcc.fc.up.pt';
 const port = 9097;
 
@@ -6,10 +7,10 @@ const register = require('./modulos/register.js');
 const ranking = require('./modulos/ranking.js');
 const join = require('./modulos/join.js');
 
+
 let nick, password;
 
 const server = http.createServer(function (request, response) {
-
     switch (request.method) {
         case 'POST':
           switch (request.url) {
@@ -62,7 +63,7 @@ const server = http.createServer(function (request, response) {
                 })   
                 break;
             default:
-                response.writeHead(500, {'Content-Type': 'application/json'});
+                response.writeHead(501, {'Content-Type': 'application/json'});
                 response.end();
                 break;
           }
@@ -70,4 +71,10 @@ const server = http.createServer(function (request, response) {
     }
 });
 
-server.listen(port);
+server.listen(port, hostname, (err) => {
+    if (err) {
+        console.log('Something went wrong', err);
+    } else {
+        console.log(`Server running at http://${hostname}:${port}`);
+    }
+});

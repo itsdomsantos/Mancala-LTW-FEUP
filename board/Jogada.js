@@ -19,7 +19,6 @@ class Jogada{
     checkIfClicked(){ // vê se cada cavidade foi clickada  
         this.counter();
 
-        console.log(this.changeTurn);
         if(this.mode == 'computer'){ // modo vs computer
             let max_Seeds = 0;
             let cav_aux;

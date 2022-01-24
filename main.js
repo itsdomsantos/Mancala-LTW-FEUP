@@ -204,7 +204,7 @@ function displayClassifications(){
 
 
 // PARTE DO SERVIDOR
-const URL = 'http://localhost:9097/'; // URL do servidor
+const URL = 'http://twserver.alunos.dcc.fc.up.pt:9097/'; // URL do servidor
 const URL2 = 'http://twserver.alunos.dcc.fc.up.pt:8008/'; // URL do servidor do professor
 
 const group = 97; 
