@@ -33,12 +33,15 @@ module.exports = async function(aux, nick, password) {
         return dataToSend;
     }
     else {
+        let i = 0;
         gamesOnHold.forEach(ele => {
-            console.log(ele, ele.game);
             if(ele.group == game.group){
                 dataToSend.stat = 200;
                 dataToSend.msg = {game: ele.game};
+                gamesOnHold.splice(i, 1);
+                console.log(gamesOnHold);
             }
+            i++;
         })
 
         if(dataToSend.stat == 200) return dataToSend; 

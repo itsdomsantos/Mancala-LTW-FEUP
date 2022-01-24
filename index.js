@@ -1,5 +1,4 @@
 const http = require('http');
-const fs = require('fs');
 const hostname = 'twserver.alunos.dcc.fc.up.pt';
 const port = 9097;
 
@@ -71,4 +70,10 @@ const server = http.createServer(function (request, response) {
     }
 });
 
-server.listen(port);
+server.listen(port, hostname, (err) => {
+    if (err) {
+        console.log('Something went wrong', err);
+    } else {
+        console.log(`Server running at http://${hostname}:${port}`);
+    }
+});
